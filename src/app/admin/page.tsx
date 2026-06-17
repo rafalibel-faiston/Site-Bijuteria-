@@ -209,28 +209,32 @@ export default function AdminDashboard() {
             </Link>
           </div>
           <div className="space-y-4">
-            {data?.produtosMaisVendidos.map((produto, i) => (
-              <div key={produto.id} className="flex items-center gap-4">
-                <span className="w-6 h-6 rounded-full bg-[#b95a39]/10 text-[#b95a39] text-xs font-bold flex items-center justify-center">
-                  {i + 1}
-                </span>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">{produto.nome}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <div className="flex-1 bg-gray-100 rounded-full h-1.5">
+            {data?.produtosMaisVendidos.map((produto, i) => {
+              const maxVendas = Math.max(...(data?.produtosMaisVendidos.map(p => p.vendas) || [1]), 1)
+              const largura = Math.min(100, Math.round((produto.vendas / maxVendas) * 100))
+              return (
+                <div key={produto.id} className="flex items-center gap-3">
+                  <span className="w-6 h-6 flex-shrink-0 rounded-full bg-[#b95a39]/10 text-[#b95a39] text-xs font-bold flex items-center justify-center">
+                    {i + 1}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-sm font-medium text-gray-900 truncate">{produto.nome}</p>
+                      <span className="text-xs text-gray-500 flex-shrink-0 whitespace-nowrap">{produto.vendas} vendas</span>
+                    </div>
+                    <div className="w-full bg-gray-100 rounded-full h-1.5 mt-1.5 overflow-hidden">
                       <div
                         className="bg-[#b95a39] h-1.5 rounded-full"
-                        style={{ width: `${(produto.vendas / 40) * 100}%` }}
+                        style={{ width: `${largura}%` }}
                       />
                     </div>
-                    <span className="text-xs text-gray-500">{produto.vendas} vendas</span>
                   </div>
+                  <span className={`text-xs px-2 py-1 flex-shrink-0 rounded-full whitespace-nowrap ${produto.estoque <= 5 ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
+                    {produto.estoque} und
+                  </span>
                 </div>
-                <span className={`text-xs px-2 py-1 rounded-full ${produto.estoque <= 5 ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-                  {produto.estoque} und
-                </span>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </motion.div>
       </div>
