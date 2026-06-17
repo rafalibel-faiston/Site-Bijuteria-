@@ -10,6 +10,9 @@ const loginSchema = z.object({
 })
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  // Confia no host do ambiente (necessario no Railway e outros hosts gerenciados)
+  trustHost: true,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   session: { strategy: 'jwt' },
   pages: {
     signIn: '/login',
