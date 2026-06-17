@@ -84,8 +84,8 @@ export default function CorreiosAdmin() {
         className="bg-white rounded-2xl border border-gray-100 p-6"
       >
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-yellow-50 rounded-xl">
-            <Truck className="w-5 h-5 text-[#b95a39]" />
+          <div className="p-2 bg-terracotta-50 rounded-xl">
+            <Truck className="w-5 h-5 text-terracotta-600" />
           </div>
           <h2 className="font-semibold text-gray-900">Calculadora de Frete</h2>
         </div>

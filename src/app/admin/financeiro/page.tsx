@@ -108,7 +108,7 @@ export default function FinanceiroAdmin() {
         {[
           { title: 'Receita', total: data?.receitaTotal, mes: data?.receitaMes, icon: TrendingUp, color: 'text-green-600', bg: 'bg-green-50' },
           { title: 'Despesas', total: data?.despesasTotal, mes: data?.despesasMes, icon: TrendingDown, color: 'text-red-500', bg: 'bg-red-50' },
-          { title: 'Lucro', total: data?.lucroTotal, mes: data?.lucroMes, icon: DollarSign, color: 'text-[#b95a39]', bg: 'bg-yellow-50' },
+          { title: 'Lucro', total: data?.lucroTotal, mes: data?.lucroMes, icon: DollarSign, color: 'text-terracotta-600', bg: 'bg-terracotta-50' },
         ].map((kpi, i) => (
           <motion.div
             key={kpi.title}

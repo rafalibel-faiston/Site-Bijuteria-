@@ -10,6 +10,7 @@ interface DashboardData {
   totalPedidos: number
   pedidosPendentes: number
   produtosEstoqueBaixo: number
+  totalProdutos: number
   receitaMes: number
   receitaMesAnterior: number
   pedidosRecentes: Array<{
@@ -61,6 +62,7 @@ export default function AdminDashboard() {
           totalPedidos: 87,
           pedidosPendentes: 12,
           produtosEstoqueBaixo: 4,
+          totalProdutos: 24,
           receitaMes: 4830.0,
           receitaMesAnterior: 3900.0,
           pedidosRecentes: [
@@ -104,8 +106,8 @@ export default function AdminDashboard() {
             title: 'Receita Total',
             value: `R$ ${data?.totalVendas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
             icon: TrendingUp,
-            color: 'text-[#b95a39]',
-            bg: 'bg-yellow-50',
+            color: 'text-terracotta-600',
+            bg: 'bg-terracotta-50',
             sub: `Este mês: R$ ${data?.receitaMes.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
             trend: receitaVariacao,
           },
@@ -119,11 +121,11 @@ export default function AdminDashboard() {
           },
           {
             title: 'Produtos',
-            value: data?.produtosEstoqueBaixo,
+            value: data?.totalProdutos,
             icon: Package,
-            color: 'text-purple-600',
-            bg: 'bg-purple-50',
-            sub: 'com estoque baixo',
+            color: 'text-sage-600',
+            bg: 'bg-sage-50',
+            sub: 'no catálogo',
           },
           {
             title: 'Alertas',

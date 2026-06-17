@@ -33,6 +33,8 @@ export async function GET() {
     where: { estoque: { lte: prisma.produto.fields.estoqueMinimo } },
   }).catch(() => 0)
 
+  const totalProdutos = await prisma.produto.count().catch(() => 0)
+
   const pedidosRecentes = pedidos.slice(0, 5).map(p => ({
     id: p.id,
     numeroPedido: p.numeroPedido,
@@ -54,6 +56,7 @@ export async function GET() {
     totalPedidos,
     pedidosPendentes,
     produtosEstoqueBaixo,
+    totalProdutos,
     receitaMes,
     receitaMesAnterior,
     pedidosRecentes,

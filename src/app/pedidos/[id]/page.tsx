@@ -129,8 +129,8 @@ export default async function OrderPage({ params }: Props) {
                 <span className="text-forest-900">{formatCurrency(pedido.subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-forest-500">Frete ({pedido.servicoCorreios})</span>
-                <span className="text-forest-900">{formatCurrency(pedido.frete)}</span>
+                <span className="text-forest-500">Frete{pedido.servicoCorreios ? ` (${pedido.servicoCorreios})` : ''}</span>
+                <span className="text-forest-900">{pedido.frete > 0 ? formatCurrency(pedido.frete) : 'Grátis'}</span>
               </div>
               <div className="flex justify-between font-semibold">
                 <span className="text-forest-900">Total</span>

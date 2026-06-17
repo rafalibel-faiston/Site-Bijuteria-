@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { CreditCard, Barcode, QrCode, ChevronRight } from 'lucide-react'
+import { CreditCard, Barcode, QrCode, ChevronRight, Loader2, CheckCircle2 } from 'lucide-react'
 import Image from 'next/image'
 import { useCartStore } from '@/components/cart/cart-store'
 import { Button } from '@/components/ui/button'
@@ -33,6 +33,7 @@ export default function CheckoutPage() {
   const { items, total, clearCart } = useCartStore()
   const [loading, setLoading] = useState(false)
   const [step, setStep] = useState(1)
+  const [pagamento, setPagamento] = useState<'idle' | 'processando' | 'aprovado'>('idle')
 
   const {
     register,
@@ -64,12 +65,28 @@ export default function CheckoutPage() {
 
   const onSubmit = async (data: CheckoutForm) => {
     setLoading(true)
+    setPagamento('processando')
     try {
+      // Pagamento simulado (modo teste) — pequena pausa para simular o gateway.
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
       const response = await fetch('/api/pedidos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...data,
+          clienteNome: data.nome,
+          clienteEmail: data.email,
+          clienteTelefone: data.telefone,
+          cep: data.cep,
+          enderecoEntrega: {
+            logradouro: data.logradouro,
+            numero: data.numero,
+            complemento: data.complemento,
+            bairro: data.bairro,
+            cidade: data.cidade,
+            estado: data.estado,
+          },
+          formaPagamento: data.formaPagamento,
           itens: items.map(item => ({
             produtoId: item.id,
             quantidade: item.quantidade,
@@ -78,16 +95,22 @@ export default function CheckoutPage() {
           subtotal: total(),
           frete: 0,
           total: total(),
+          pagamentoSimulado: true,
         }),
       })
 
+      if (!response.ok) throw new Error('Falha ao criar pedido')
+
       const pedido = await response.json()
+      setPagamento('aprovado')
       clearCart()
+      await new Promise((resolve) => setTimeout(resolve, 900))
       router.push(`/pedidos/${pedido.id}`)
     } catch (error) {
       console.error(error)
-    } finally {
+      setPagamento('idle')
       setLoading(false)
+      alert('Não foi possível finalizar o pedido. Tente novamente.')
     }
   }
 
@@ -102,10 +125,39 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-cream-100 pt-24 pb-20">
+      {/* Overlay de pagamento simulado (modo teste) */}
+      {pagamento !== 'idle' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-forest-900/60 backdrop-blur-sm px-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-cream-50 rounded-2xl border border-cream-300 p-8 text-center max-w-sm w-full shadow-xl"
+          >
+            {pagamento === 'processando' ? (
+              <>
+                <Loader2 className="w-12 h-12 text-terracotta-500 animate-spin mx-auto mb-4" />
+                <p className="text-forest-900 font-semibold text-lg">Processando pagamento</p>
+                <p className="text-forest-500 text-sm mt-1">Aguarde um instante...</p>
+              </>
+            ) : (
+              <>
+                <CheckCircle2 className="w-12 h-12 text-sage-600 mx-auto mb-4" />
+                <p className="text-forest-900 font-semibold text-lg">Pagamento aprovado!</p>
+                <p className="text-forest-500 text-sm mt-1">Redirecionando para o seu pedido...</p>
+              </>
+            )}
+          </motion.div>
+        </div>
+      )}
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="font-heading text-4xl font-bold text-forest-900 mb-8">
           Finalizar <span className="text-gradient-brand">Compra</span>
         </h1>
+
+        <div className="mb-6 p-3 rounded-xl bg-mustard-400/15 border border-mustard-400/30 text-sm text-forest-700">
+          <strong className="font-semibold">Modo teste:</strong> o pagamento é simulado e aprovado automaticamente para validar a baixa de estoque.
+        </div>
 
         {/* Steps */}
         <div className="flex items-center gap-4 mb-10">
