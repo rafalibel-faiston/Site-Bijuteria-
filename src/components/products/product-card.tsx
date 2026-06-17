@@ -50,7 +50,7 @@ export function ProductCard({ id, nome, slug, preco, precoOriginal, imagens, cat
       className="group relative"
     >
       <Link href={`/produtos/${slug}`}>
-        <div className="relative overflow-hidden rounded-2xl bg-dark-800 border border-dark-700 group-hover:border-gold-500/50 transition-all duration-300">
+        <div className="relative overflow-hidden rounded-2xl bg-cream-50 border border-cream-300 group-hover:border-terracotta-500/50 soft-shadow transition-all duration-300">
           {/* Image Container */}
           <div className="relative aspect-square overflow-hidden">
             <Image
@@ -94,9 +94,9 @@ export function ProductCard({ id, nome, slug, preco, precoOriginal, imagens, cat
                 e.preventDefault()
                 setIsWishlisted(!isWishlisted)
               }}
-              className="absolute top-3 right-3 w-9 h-9 rounded-full bg-dark-900/70 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-dark-700"
+              className="absolute top-3 right-3 w-9 h-9 rounded-full bg-cream-50/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-cream-100"
             >
-              <Heart className={`w-4 h-4 transition-colors ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-white'}`} />
+              <Heart className={`w-4 h-4 transition-colors ${isWishlisted ? 'fill-terracotta-500 text-terracotta-500' : 'text-forest-700'}`} />
             </button>
 
             {/* Quick actions */}
@@ -104,31 +104,31 @@ export function ProductCard({ id, nome, slug, preco, precoOriginal, imagens, cat
               <button
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="flex-1 flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 text-dark-900 font-semibold text-sm py-2.5 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 flex items-center justify-center gap-2 bg-terracotta-500 hover:bg-terracotta-600 text-cream-50 font-semibold text-sm py-2.5 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <ShoppingBag className="w-4 h-4" />
                 {isOutOfStock ? 'Esgotado' : 'Adicionar'}
               </button>
               <Link
                 href={`/produtos/${slug}`}
-                className="w-10 h-10 flex items-center justify-center bg-dark-700/90 hover:bg-dark-600 rounded-xl transition-colors"
+                className="w-10 h-10 flex items-center justify-center bg-forest-700/90 hover:bg-forest-600 rounded-xl transition-colors"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Eye className="w-4 h-4 text-white" />
+                <Eye className="w-4 h-4 text-cream-50" />
               </Link>
             </div>
           </div>
 
           {/* Content */}
           <div className="p-4">
-            <p className="text-dark-400 text-xs mb-1">{categoria}</p>
-            <h3 className="text-white font-medium text-sm leading-snug mb-3 line-clamp-2 group-hover:text-gold-400 transition-colors">
+            <p className="text-sage-600 text-xs mb-1">{categoria}</p>
+            <h3 className="text-forest-900 font-medium text-sm leading-snug mb-3 line-clamp-2 group-hover:text-terracotta-500 transition-colors">
               {nome}
             </h3>
             <div className="flex items-center gap-2">
-              <span className="text-gold-500 font-bold">{formatCurrency(preco)}</span>
+              <span className="text-terracotta-500 font-bold">{formatCurrency(preco)}</span>
               {precoOriginal && (
-                <span className="text-dark-500 text-xs line-through">{formatCurrency(precoOriginal)}</span>
+                <span className="text-forest-400 text-xs line-through">{formatCurrency(precoOriginal)}</span>
               )}
             </div>
           </div>

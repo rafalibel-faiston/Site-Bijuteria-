@@ -90,7 +90,7 @@ export default function FinanceiroAdmin() {
 
   if (loading) return (
     <div className="flex items-center justify-center h-64">
-      <div className="w-8 h-8 border-4 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-4 border-[#b95a39] border-t-transparent rounded-full animate-spin" />
     </div>
   )
 
@@ -108,7 +108,7 @@ export default function FinanceiroAdmin() {
         {[
           { title: 'Receita', total: data?.receitaTotal, mes: data?.receitaMes, icon: TrendingUp, color: 'text-green-600', bg: 'bg-green-50' },
           { title: 'Despesas', total: data?.despesasTotal, mes: data?.despesasMes, icon: TrendingDown, color: 'text-red-500', bg: 'bg-red-50' },
-          { title: 'Lucro', total: data?.lucroTotal, mes: data?.lucroMes, icon: DollarSign, color: 'text-[#C9A84C]', bg: 'bg-yellow-50' },
+          { title: 'Lucro', total: data?.lucroTotal, mes: data?.lucroMes, icon: DollarSign, color: 'text-[#b95a39]', bg: 'bg-yellow-50' },
         ].map((kpi, i) => (
           <motion.div
             key={kpi.title}
@@ -151,7 +151,7 @@ export default function FinanceiroAdmin() {
                 initial={{ height: 0 }}
                 animate={{ height: `${(mes.receita / maxReceita) * 160}px` }}
                 transition={{ delay: i * 0.1, type: 'spring' }}
-                className="w-full bg-gradient-to-t from-[#C9A84C] to-[#D4AF37] rounded-t-lg min-h-[4px]"
+                className="w-full bg-gradient-to-t from-terracotta-500 to-sage-600 rounded-t-lg min-h-[4px]"
               />
               <span className="text-xs text-gray-400">{mes.mes}</span>
             </div>
@@ -165,7 +165,7 @@ export default function FinanceiroAdmin() {
           <h2 className="text-lg font-semibold text-gray-900">Despesas</h2>
           <button
             onClick={() => setShowFormDespesa(!showFormDespesa)}
-            className="flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8962A] text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+            className="flex items-center gap-2 bg-[#b95a39] hover:bg-[#9c4830] text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors"
           >
             <Plus className="w-4 h-4" />
             Nova Despesa
@@ -185,7 +185,7 @@ export default function FinanceiroAdmin() {
               required
               value={novaDespesa.descricao}
               onChange={e => setNovaDespesa(prev => ({ ...prev, descricao: e.target.value }))}
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
             />
             <input
               type="number"
@@ -195,19 +195,19 @@ export default function FinanceiroAdmin() {
               step="0.01"
               value={novaDespesa.valor}
               onChange={e => setNovaDespesa(prev => ({ ...prev, valor: e.target.value }))}
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
             />
             <select
               value={novaDespesa.categoria}
               onChange={e => setNovaDespesa(prev => ({ ...prev, categoria: e.target.value }))}
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
             >
               {categoriasDespesa.map(cat => <option key={cat}>{cat}</option>)}
             </select>
             <button
               type="submit"
               disabled={savingDespesa}
-              className="bg-[#C9A84C] hover:bg-[#B8962A] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              className="bg-[#b95a39] hover:bg-[#9c4830] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               {savingDespesa ? 'Salvando...' : 'Adicionar'}
             </button>

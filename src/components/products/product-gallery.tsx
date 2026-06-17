@@ -29,7 +29,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
     <div className="space-y-4">
       {/* Main Image */}
       <div
-        className="relative aspect-square rounded-2xl overflow-hidden bg-dark-800 cursor-zoom-in group"
+        className="relative aspect-square rounded-2xl overflow-hidden bg-cream-100 soft-shadow cursor-zoom-in group"
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsZoomed(true)}
         onMouseLeave={() => setIsZoomed(false)}
@@ -60,9 +60,9 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
 
         {/* Zoom hint */}
         <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="bg-dark-900/70 backdrop-blur-sm rounded-lg px-3 py-1.5 flex items-center gap-2">
-            <ZoomIn className="w-3.5 h-3.5 text-gold-400" />
-            <span className="text-white text-xs">Zoom</span>
+          <div className="bg-forest-900/70 backdrop-blur-sm rounded-lg px-3 py-1.5 flex items-center gap-2">
+            <ZoomIn className="w-3.5 h-3.5 text-terracotta-400" />
+            <span className="text-cream-50 text-xs">Zoom</span>
           </div>
         </div>
 
@@ -71,13 +71,13 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           <>
             <button
               onClick={goPrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-dark-900/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-dark-700 transition-all opacity-0 group-hover:opacity-100"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-forest-900/70 backdrop-blur-sm rounded-full flex items-center justify-center text-cream-50 hover:bg-forest-800 transition-all opacity-0 group-hover:opacity-100"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={goNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-dark-900/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-dark-700 transition-all opacity-0 group-hover:opacity-100"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-forest-900/70 backdrop-blur-sm rounded-full flex items-center justify-center text-cream-50 hover:bg-forest-800 transition-all opacity-0 group-hover:opacity-100"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -93,8 +93,8 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 onClick={() => setActiveIndex(i)}
                 className={`rounded-full transition-all duration-300 ${
                   i === activeIndex
-                    ? 'w-6 h-2 bg-gold-500'
-                    : 'w-2 h-2 bg-white/50 hover:bg-white/80'
+                    ? 'w-6 h-2 bg-terracotta-500'
+                    : 'w-2 h-2 bg-cream-50/60 hover:bg-cream-50/90'
                 }`}
               />
             ))}
@@ -111,8 +111,8 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
               onClick={() => setActiveIndex(i)}
               className={`relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${
                 i === activeIndex
-                  ? 'border-gold-500'
-                  : 'border-dark-700 hover:border-dark-500'
+                  ? 'border-terracotta-500'
+                  : 'border-cream-300 hover:border-sage-400'
               }`}
             >
               <Image

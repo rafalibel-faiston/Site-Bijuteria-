@@ -13,7 +13,7 @@ function SparkleParticle({ style }: { style: React.CSSProperties }) {
   return (
     <motion.div
       style={style}
-      className="absolute w-1 h-1 bg-gold-400 rounded-full"
+      className="absolute w-1 h-1 bg-sage-500 rounded-full"
       animate={{
         y: [0, -30, 0],
         opacity: [0, 1, 0],
@@ -64,12 +64,12 @@ export default function HomePage() {
   }, [])
 
   const categories = [
-    { name: 'Anéis', emoji: '💍', color: 'from-gold-600 to-gold-400', href: '/produtos?categoria=Anéis' },
-    { name: 'Colares', emoji: '📿', color: 'from-purple-600 to-purple-400', href: '/produtos?categoria=Colares' },
-    { name: 'Brincos', emoji: '✨', color: 'from-pink-600 to-pink-400', href: '/produtos?categoria=Brincos' },
-    { name: 'Pulseiras', emoji: '🌟', color: 'from-indigo-600 to-indigo-400', href: '/produtos?categoria=Pulseiras' },
-    { name: 'Tornozeleiras', emoji: '⭐', color: 'from-emerald-600 to-emerald-400', href: '/produtos?categoria=Tornozeleiras' },
-    { name: 'Conjuntos', emoji: '👑', color: 'from-amber-600 to-amber-400', href: '/produtos?categoria=Conjuntos' },
+    { name: 'Anéis', emoji: '💍', color: 'from-terracotta-500 to-mustard-400', href: '/produtos?categoria=Anéis' },
+    { name: 'Colares', emoji: '📿', color: 'from-sage-600 to-sage-400', href: '/produtos?categoria=Colares' },
+    { name: 'Brincos', emoji: '✨', color: 'from-terracotta-600 to-terracotta-400', href: '/produtos?categoria=Brincos' },
+    { name: 'Pulseiras', emoji: '🌟', color: 'from-forest-600 to-sage-500', href: '/produtos?categoria=Pulseiras' },
+    { name: 'Tornozeleiras', emoji: '⭐', color: 'from-mustard-500 to-mustard-400', href: '/produtos?categoria=Tornozeleiras' },
+    { name: 'Conjuntos', emoji: '👑', color: 'from-terracotta-500 to-sage-600', href: '/produtos?categoria=Conjuntos' },
   ]
 
   const features = [
@@ -82,11 +82,11 @@ export default function HomePage() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-950 via-dark-900 to-dark-800">
+      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-cream-100 via-cream-50 to-sage-100">
         {/* Background gradient orbs */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sage-400/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-terracotta-400/15 rounded-full blur-3xl" />
         </div>
 
         {/* Sparkles */}
@@ -104,21 +104,21 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="flex items-center justify-center gap-2 mb-6"
           >
-            <Sparkles className="w-5 h-5 text-gold-400" />
-            <span className="text-gold-400 text-sm font-medium tracking-widest uppercase">
+            <Sparkles className="w-5 h-5 text-terracotta-500" />
+            <span className="text-terracotta-500 text-sm font-medium tracking-widest uppercase">
               Nova Coleção 2024
             </span>
-            <Sparkles className="w-5 h-5 text-gold-400" />
+            <Sparkles className="w-5 h-5 text-terracotta-500" />
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight"
+            className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-forest-900 mb-6 leading-tight"
           >
             Beleza que{' '}
-            <span className="text-gradient-gold">brilha</span>
+            <span className="text-gradient-brand">brilha</span>
             <br />
             em você
           </motion.h1>
@@ -127,7 +127,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-dark-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-forest-500 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           >
             Descubra nossa coleção exclusiva de joias e bijuterias.
             Elegância, sofisticação e qualidade para cada momento especial.
@@ -165,8 +165,8 @@ export default function HomePage() {
               { value: '4.9★', label: 'Avaliação' },
             ].map(({ value, label }) => (
               <div key={label} className="text-center">
-                <div className="text-2xl font-bold text-gold-400 font-heading">{value}</div>
-                <div className="text-dark-400 text-sm">{label}</div>
+                <div className="text-2xl font-bold text-terracotta-500 font-heading">{value}</div>
+                <div className="text-forest-500 text-sm">{label}</div>
               </div>
             ))}
           </motion.div>
@@ -176,15 +176,15 @@ export default function HomePage() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-dark-500"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-forest-400"
         >
           <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-dark-500 to-transparent" />
+          <div className="w-px h-8 bg-gradient-to-b from-forest-400 to-transparent" />
         </motion.div>
       </section>
 
       {/* Categories */}
-      <section className="py-20 px-4 bg-dark-900">
+      <section className="py-20 px-4 bg-cream-100">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -192,10 +192,10 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="font-heading text-4xl font-bold text-white mb-4">
-              Nossas <span className="text-gradient-gold">Categorias</span>
+            <h2 className="font-heading text-4xl font-bold text-forest-900 mb-4">
+              Nossas <span className="text-gradient-brand">Categorias</span>
             </h2>
-            <p className="text-dark-400">Explore nossa vasta seleção de bijuterias</p>
+            <p className="text-forest-500">Explore nossa vasta seleção de bijuterias</p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -209,12 +209,12 @@ export default function HomePage() {
               >
                 <Link
                   href={href}
-                  className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-dark-800 border border-dark-700 hover:border-gold-500/50 hover:bg-dark-700 transition-all group"
+                  className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-cream-50 border border-cream-300 hover:border-sage-400 hover:bg-white soft-shadow transition-all group"
                 >
                   <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform`}>
                     {emoji}
                   </div>
-                  <span className="text-white text-sm font-medium">{name}</span>
+                  <span className="text-forest-900 text-sm font-medium">{name}</span>
                 </Link>
               </motion.div>
             ))}
@@ -223,18 +223,18 @@ export default function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 px-4 bg-dark-950" ref={featuredRef}>
+      <section className="py-20 px-4 bg-cream-100" ref={featuredRef}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <div>
               <motion.h2
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
-                className="font-heading text-4xl font-bold text-white mb-2"
+                className="font-heading text-4xl font-bold text-forest-900 mb-2"
               >
-                Mais <span className="text-gradient-gold">Vendidos</span>
+                Mais <span className="text-gradient-brand">Vendidos</span>
               </motion.h2>
-              <p className="text-dark-400">Os favoritos das nossas clientes</p>
+              <p className="text-forest-500">Os favoritos das nossas clientes</p>
             </div>
             <Button variant="outline" asChild>
               <Link href="/produtos">
@@ -259,12 +259,12 @@ export default function HomePage() {
             ) : (
               // Skeleton loading
               Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="rounded-2xl bg-dark-800 border border-dark-700 overflow-hidden">
-                  <div className="aspect-square bg-dark-700 animate-pulse" />
+                <div key={i} className="rounded-2xl bg-cream-50 border border-cream-300 overflow-hidden">
+                  <div className="aspect-square bg-cream-200 animate-pulse" />
                   <div className="p-4 space-y-3">
-                    <div className="h-3 bg-dark-700 rounded animate-pulse w-1/3" />
-                    <div className="h-4 bg-dark-700 rounded animate-pulse" />
-                    <div className="h-4 bg-dark-700 rounded animate-pulse w-1/2" />
+                    <div className="h-3 bg-cream-200 rounded animate-pulse w-1/3" />
+                    <div className="h-4 bg-cream-200 rounded animate-pulse" />
+                    <div className="h-4 bg-cream-200 rounded animate-pulse w-1/2" />
                   </div>
                 </div>
               ))
@@ -274,24 +274,24 @@ export default function HomePage() {
       </section>
 
       {/* Banner */}
-      <section className="py-20 px-4 bg-gradient-to-r from-dark-900 via-dark-800 to-dark-900">
+      <section className="py-20 px-4 bg-gradient-to-r from-cream-100 via-cream-50 to-cream-100">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gold-600/20 to-dark-800 border border-gold-500/30 p-12 text-center luxury-shadow"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-forest-800 to-forest-950 border border-sage-700 p-12 text-center warm-shadow"
           >
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-terracotta-500/15 rounded-full blur-3xl" />
             </div>
             <div className="relative z-10">
-              <Sparkles className="w-12 h-12 text-gold-400 mx-auto mb-6" />
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4">
+              <Sparkles className="w-12 h-12 text-mustard-400 mx-auto mb-6" />
+              <h2 className="font-heading text-4xl md:text-5xl font-bold text-cream-50 mb-4">
                 Frete Grátis acima de{' '}
-                <span className="text-gradient-gold">R$ 200</span>
+                <span className="text-gradient-sage">R$ 200</span>
               </h2>
-              <p className="text-dark-300 text-lg mb-8 max-w-xl mx-auto">
+              <p className="text-cream-200 text-lg mb-8 max-w-xl mx-auto">
                 Compre mais e economize no frete. Válido para todo o Brasil via PAC ou SEDEX.
               </p>
               <Button variant="luxury" size="xl" asChild>
@@ -306,7 +306,7 @@ export default function HomePage() {
       </section>
 
       {/* Features */}
-      <section className="py-20 px-4 bg-dark-950">
+      <section className="py-20 px-4 bg-cream-100">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map(({ icon: Icon, title, desc }, i) => (
@@ -318,11 +318,11 @@ export default function HomePage() {
                 transition={{ delay: i * 0.1 }}
                 className="text-center p-6"
               >
-                <div className="w-14 h-14 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-7 h-7 text-gold-500" />
+                <div className="w-14 h-14 rounded-2xl bg-sage-100 border border-sage-200 flex items-center justify-center mx-auto mb-4">
+                  <Icon className="w-7 h-7 text-sage-600" />
                 </div>
-                <h3 className="text-white font-semibold mb-2">{title}</h3>
-                <p className="text-dark-400 text-sm">{desc}</p>
+                <h3 className="text-forest-900 font-semibold mb-2">{title}</h3>
+                <p className="text-forest-500 text-sm">{desc}</p>
               </motion.div>
             ))}
           </div>

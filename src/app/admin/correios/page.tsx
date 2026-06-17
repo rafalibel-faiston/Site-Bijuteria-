@@ -85,7 +85,7 @@ export default function CorreiosAdmin() {
       >
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2 bg-yellow-50 rounded-xl">
-            <Truck className="w-5 h-5 text-[#C9A84C]" />
+            <Truck className="w-5 h-5 text-[#b95a39]" />
           </div>
           <h2 className="font-semibold text-gray-900">Calculadora de Frete</h2>
         </div>
@@ -98,7 +98,7 @@ export default function CorreiosAdmin() {
               onChange={e => setCepOrigem(e.target.value.replace(/\D/g, ''))}
               maxLength={8}
               placeholder="00000000"
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
             />
           </div>
           <div>
@@ -109,7 +109,7 @@ export default function CorreiosAdmin() {
               onChange={e => setCalculo(prev => ({ ...prev, cepDestino: e.target.value.replace(/\D/g, '') }))}
               maxLength={8}
               placeholder="00000000"
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
             />
           </div>
           <div>
@@ -119,14 +119,14 @@ export default function CorreiosAdmin() {
               value={calculo.peso}
               onChange={e => setCalculo(prev => ({ ...prev, peso: e.target.value }))}
               min="1"
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
             />
           </div>
           <div className="flex items-end">
             <button
               onClick={calcularFrete}
               disabled={calculando}
-              className="w-full py-2 bg-[#C9A84C] hover:bg-[#B8962A] text-white rounded-lg text-sm font-medium transition-colors"
+              className="w-full py-2 bg-[#b95a39] hover:bg-[#9c4830] text-white rounded-lg text-sm font-medium transition-colors"
             >
               {calculando ? 'Calculando...' : 'Calcular'}
             </button>
@@ -137,7 +137,7 @@ export default function CorreiosAdmin() {
             {calculo.servicos.map(s => (
               <div key={s.servico} className="bg-gray-50 rounded-xl p-4 border border-gray-100">
                 <p className="font-semibold text-gray-900">{s.servico}</p>
-                <p className="text-xl font-bold text-[#C9A84C] mt-1">R$ {s.preco}</p>
+                <p className="text-xl font-bold text-[#b95a39] mt-1">R$ {s.preco}</p>
                 <p className="text-xs text-gray-500 mt-1">{s.prazo} dias úteis</p>
               </div>
             ))}
@@ -168,13 +168,13 @@ export default function CorreiosAdmin() {
               placeholder="Buscar..."
               value={busca}
               onChange={e => setBusca(e.target.value)}
-              className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+              className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
             />
           </div>
         </div>
         {loading ? (
           <div className="flex items-center justify-center h-24">
-            <div className="w-6 h-6 border-4 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-4 border-[#b95a39] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : pedidosFiltrados.length === 0 ? (
           <div className="text-center py-8 text-gray-400">
@@ -202,20 +202,20 @@ export default function CorreiosAdmin() {
                     <p className="text-sm text-gray-600 mt-1">{pedido.clienteNome}</p>
                     <p className="text-xs text-gray-400 mt-0.5">{getEndereco(pedido.enderecoEntrega)} — CEP: {pedido.cep}</p>
                     {pedido.servicoCorreios && (
-                      <p className="text-xs text-[#C9A84C] mt-0.5">Serviço: {pedido.servicoCorreios} — Frete: R$ {pedido.frete.toFixed(2)}</p>
+                      <p className="text-xs text-[#b95a39] mt-0.5">Serviço: {pedido.servicoCorreios} — Frete: R$ {pedido.frete.toFixed(2)}</p>
                     )}
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     {pedido.codigoRastreio ? (
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-sm bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-lg text-[#C9A84C]">
+                        <span className="font-mono text-sm bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-lg text-[#b95a39]">
                           {pedido.codigoRastreio}
                         </span>
                         <a
                           href={`https://rastreamento.correios.com.br/app/index.php?objeto=${pedido.codigoRastreio}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-1.5 text-gray-400 hover:text-[#C9A84C] transition-colors"
+                          className="p-1.5 text-gray-400 hover:text-[#b95a39] transition-colors"
                         >
                           <ExternalLink className="w-4 h-4" />
                         </a>
@@ -227,12 +227,12 @@ export default function CorreiosAdmin() {
                           placeholder="Código de rastreio"
                           value={rastreioInput[pedido.id] || ''}
                           onChange={e => setRastreioInput(prev => ({ ...prev, [pedido.id]: e.target.value.toUpperCase() }))}
-                          className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50 w-40"
+                          className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50 w-40"
                         />
                         <button
                           onClick={() => salvarRastreio(pedido.id)}
                           disabled={saving === pedido.id || !rastreioInput[pedido.id]}
-                          className="px-4 py-1.5 bg-[#C9A84C] hover:bg-[#B8962A] disabled:opacity-50 text-white rounded-lg text-sm font-medium transition-colors"
+                          className="px-4 py-1.5 bg-[#b95a39] hover:bg-[#9c4830] disabled:opacity-50 text-white rounded-lg text-sm font-medium transition-colors"
                         >
                           {saving === pedido.id ? '...' : 'Marcar Enviado'}
                         </button>

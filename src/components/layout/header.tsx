@@ -30,7 +30,7 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? 'bg-dark-900/95 backdrop-blur-md shadow-lg shadow-dark-900/50'
+          ? 'bg-cream-100/95 backdrop-blur-md soft-shadow border-b border-cream-300'
           : 'bg-transparent'
       }`}
     >
@@ -38,11 +38,11 @@ export function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Gem className="w-4 h-4 text-dark-900" />
+            <div className="w-8 h-8 bg-gradient-to-br from-terracotta-500 to-sage-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Gem className="w-4 h-4 text-cream-50" />
             </div>
-            <span className="font-heading text-xl font-bold text-white">
-              Bella <span className="text-gold-500">Bijuteria</span>
+            <span className="font-heading text-xl font-bold text-forest-900">
+              Charme <span className="text-terracotta-500">Final</span>
             </span>
           </Link>
 
@@ -52,10 +52,10 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm text-dark-200 hover:text-gold-400 transition-colors relative group"
+                className="text-sm text-forest-700 hover:text-terracotta-500 transition-colors relative group"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-500 group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-terracotta-500 group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
           </nav>
@@ -71,10 +71,10 @@ export function Header() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Buscar joias..."
-                  className="bg-dark-800/80 border border-dark-700 rounded-full px-4 py-2 pr-10 text-sm text-white placeholder-dark-400 focus:outline-none focus:border-gold-500 w-40 focus:w-52 transition-all"
+                  className="bg-cream-50 border border-cream-300 rounded-full px-4 py-2 pr-10 text-sm text-forest-900 placeholder-forest-400 focus:outline-none focus:border-terracotta-500 w-40 focus:w-52 transition-all"
                 />
                 <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <Search className="w-4 h-4 text-dark-400" />
+                  <Search className="w-4 h-4 text-forest-400" />
                 </button>
               </div>
             </form>
@@ -82,14 +82,14 @@ export function Header() {
             {/* Cart */}
             <button
               onClick={openCart}
-              className="relative p-2 text-white hover:text-gold-400 transition-colors"
+              className="relative p-2 text-forest-700 hover:text-terracotta-500 transition-colors"
             >
               <ShoppingBag className="w-6 h-6" />
               {totalItems() > 0 && (
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute -top-1 -right-1 bg-gold-500 text-dark-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+                  className="absolute -top-1 -right-1 bg-terracotta-500 text-cream-50 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
                 >
                   {totalItems()}
                 </motion.span>
@@ -99,7 +99,7 @@ export function Header() {
             {/* Mobile menu toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-white"
+              className="lg:hidden p-2 text-forest-700"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -114,7 +114,7 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-dark-900/98 backdrop-blur-md border-t border-dark-700"
+            className="lg:hidden bg-cream-100/98 backdrop-blur-md border-t border-cream-300"
           >
             <div className="px-4 py-6 space-y-4">
               {/* Mobile Search */}
@@ -124,10 +124,10 @@ export function Header() {
                     type="text"
                     name="search"
                     placeholder="Buscar joias..."
-                    className="w-full bg-dark-800 border border-dark-700 rounded-full px-4 py-2 pr-10 text-sm text-white placeholder-dark-400 focus:outline-none focus:border-gold-500"
+                    className="w-full bg-cream-50 border border-cream-300 rounded-full px-4 py-2 pr-10 text-sm text-forest-900 placeholder-forest-400 focus:outline-none focus:border-terracotta-500"
                   />
                   <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <Search className="w-4 h-4 text-dark-400" />
+                    <Search className="w-4 h-4 text-forest-400" />
                   </button>
                 </div>
               </form>
@@ -137,7 +137,7 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block text-dark-200 hover:text-gold-400 transition-colors py-2 text-lg"
+                  className="block text-forest-700 hover:text-terracotta-500 transition-colors py-2 text-lg"
                 >
                   {link.label}
                 </Link>

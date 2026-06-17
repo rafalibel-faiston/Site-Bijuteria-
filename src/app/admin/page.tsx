@@ -83,7 +83,7 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-4 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[#b95a39] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -102,7 +102,7 @@ export default function AdminDashboard() {
             title: 'Receita Total',
             value: `R$ ${data?.totalVendas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
             icon: TrendingUp,
-            color: 'text-[#C9A84C]',
+            color: 'text-[#b95a39]',
             bg: 'bg-yellow-50',
             sub: `Este mês: R$ ${data?.receitaMes.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
             trend: receitaVariacao,
@@ -167,7 +167,7 @@ export default function AdminDashboard() {
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-gray-900">Pedidos Recentes</h2>
-            <Link href="/admin/pedidos" className="text-sm text-[#C9A84C] hover:underline">
+            <Link href="/admin/pedidos" className="text-sm text-[#b95a39] hover:underline">
               Ver todos
             </Link>
           </div>
@@ -200,14 +200,14 @@ export default function AdminDashboard() {
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-gray-900">Mais Vendidos</h2>
-            <Link href="/admin/produtos" className="text-sm text-[#C9A84C] hover:underline">
+            <Link href="/admin/produtos" className="text-sm text-[#b95a39] hover:underline">
               Ver todos
             </Link>
           </div>
           <div className="space-y-4">
             {data?.produtosMaisVendidos.map((produto, i) => (
               <div key={produto.id} className="flex items-center gap-4">
-                <span className="w-6 h-6 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] text-xs font-bold flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-[#b95a39]/10 text-[#b95a39] text-xs font-bold flex items-center justify-center">
                   {i + 1}
                 </span>
                 <div className="flex-1">
@@ -215,7 +215,7 @@ export default function AdminDashboard() {
                   <div className="flex items-center gap-2 mt-1">
                     <div className="flex-1 bg-gray-100 rounded-full h-1.5">
                       <div
-                        className="bg-[#C9A84C] h-1.5 rounded-full"
+                        className="bg-[#b95a39] h-1.5 rounded-full"
                         style={{ width: `${(produto.vendas / 40) * 100}%` }}
                       />
                     </div>
@@ -236,7 +236,7 @@ export default function AdminDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="bg-gradient-to-r from-[#1a0a2e] to-[#2d1254] rounded-2xl p-6 text-white"
+        className="bg-gradient-to-r from-[#1c2620] to-[#233028] rounded-2xl p-6 text-white"
       >
         <h2 className="text-lg font-semibold mb-4">Ações Rápidas</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

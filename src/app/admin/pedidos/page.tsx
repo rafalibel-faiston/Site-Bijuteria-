@@ -111,13 +111,13 @@ export default function PedidosAdmin() {
             placeholder="Buscar por número ou cliente..."
             value={busca}
             onChange={e => setBusca(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
           />
         </div>
         <button
           onClick={() => setStatusFiltro('TODOS')}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-            statusFiltro === 'TODOS' ? 'bg-[#C9A84C] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            statusFiltro === 'TODOS' ? 'bg-[#b95a39] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
         >
           <Filter className="w-4 h-4" />
@@ -129,7 +129,7 @@ export default function PedidosAdmin() {
       <div className="space-y-3">
         {loading ? (
           <div className="flex items-center justify-center h-40 bg-white rounded-2xl border border-gray-100">
-            <div className="w-8 h-8 border-4 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-[#b95a39] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : pedidosFiltrados.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-40 bg-white rounded-2xl border border-gray-100 text-gray-400">
@@ -193,7 +193,7 @@ export default function PedidosAdmin() {
                         <select
                           value={pedido.status}
                           onChange={e => atualizarStatus(pedido.id, e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
                         >
                           {statusOptions.map(s => (
                             <option key={s} value={s}>{statusLabels[s]}</option>
@@ -203,7 +203,7 @@ export default function PedidosAdmin() {
                       <div>
                         <p className="text-sm font-medium text-gray-700 mb-1">Código de rastreio</p>
                         {pedido.codigoRastreio ? (
-                          <p className="text-sm font-mono bg-white border border-gray-200 rounded-lg px-3 py-2 text-[#C9A84C]">
+                          <p className="text-sm font-mono bg-white border border-gray-200 rounded-lg px-3 py-2 text-[#b95a39]">
                             {pedido.codigoRastreio}
                           </p>
                         ) : (
@@ -213,11 +213,11 @@ export default function PedidosAdmin() {
                               placeholder="Ex: BR123456789"
                               value={rastreios[pedido.id] || ''}
                               onChange={e => setRastreios(prev => ({ ...prev, [pedido.id]: e.target.value }))}
-                              className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                              className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
                             />
                             <button
                               onClick={() => adicionarRastreio(pedido.id)}
-                              className="px-3 py-2 bg-[#C9A84C] text-white rounded-lg text-sm hover:bg-[#B8962A] transition-colors"
+                              className="px-3 py-2 bg-[#b95a39] text-white rounded-lg text-sm hover:bg-[#9c4830] transition-colors"
                             >
                               Salvar
                             </button>

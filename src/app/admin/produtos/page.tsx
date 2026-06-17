@@ -76,7 +76,7 @@ export default function ProdutosAdmin() {
         </div>
         <Link
           href="/admin/produtos/novo"
-          className="flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8962A] text-white px-5 py-3 rounded-xl font-medium transition-colors"
+          className="flex items-center gap-2 bg-[#b95a39] hover:bg-[#9c4830] text-white px-5 py-3 rounded-xl font-medium transition-colors"
         >
           <Plus className="w-5 h-5" />
           Novo Produto
@@ -92,7 +92,7 @@ export default function ProdutosAdmin() {
             placeholder="Buscar produto..."
             value={busca}
             onChange={e => setBusca(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
           />
         </div>
         <div className="flex gap-2 flex-wrap">
@@ -102,7 +102,7 @@ export default function ProdutosAdmin() {
               onClick={() => setCategoriaFiltro(cat)}
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 categoriaFiltro === cat
-                  ? 'bg-[#C9A84C] text-white'
+                  ? 'bg-[#b95a39] text-white'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -116,7 +116,7 @@ export default function ProdutosAdmin() {
       <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center h-40">
-            <div className="w-8 h-8 border-4 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-[#b95a39] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : produtosFiltrados.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-40 text-gray-400">
@@ -197,7 +197,7 @@ export default function ProdutosAdmin() {
                         <button onClick={() => toggleAtivo(produto.id, produto.ativo)} className="p-1.5 text-gray-400 hover:text-blue-600 transition-colors">
                           {produto.ativo ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
-                        <Link href={`/admin/produtos/${produto.id}/editar`} className="p-1.5 text-gray-400 hover:text-[#C9A84C] transition-colors">
+                        <Link href={`/admin/produtos/${produto.id}/editar`} className="p-1.5 text-gray-400 hover:text-[#b95a39] transition-colors">
                           <Edit2 className="w-4 h-4" />
                         </Link>
                         <button

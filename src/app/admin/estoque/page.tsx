@@ -109,7 +109,7 @@ export default function EstoqueAdmin() {
             key={f.key}
             onClick={() => setFiltro(f.key as 'todos' | 'baixo' | 'critico')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              filtro === f.key ? 'bg-[#C9A84C] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+              filtro === f.key ? 'bg-[#b95a39] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
             }`}
           >
             {f.label}
@@ -121,7 +121,7 @@ export default function EstoqueAdmin() {
       <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center h-40">
-            <div className="w-8 h-8 border-4 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-[#b95a39] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -179,7 +179,7 @@ export default function EstoqueAdmin() {
                             type="number"
                             value={ajustes[produto.id] || 0}
                             onChange={e => setAjustes(prev => ({ ...prev, [produto.id]: parseInt(e.target.value) || 0 }))}
-                            className="w-16 text-center border border-gray-200 rounded-lg py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                            className="w-16 text-center border border-gray-200 rounded-lg py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
                           />
                           <button
                             onClick={() => ajustar(produto.id, 1)}
@@ -191,7 +191,7 @@ export default function EstoqueAdmin() {
                           <button
                             onClick={() => salvarAjuste(produto.id)}
                             disabled={!ajustes[produto.id] || saving === produto.id}
-                            className="p-1.5 bg-[#C9A84C] hover:bg-[#B8962A] disabled:opacity-40 text-white rounded-lg transition-colors"
+                            className="p-1.5 bg-[#b95a39] hover:bg-[#9c4830] disabled:opacity-40 text-white rounded-lg transition-colors"
                           >
                             <Save className="w-4 h-4" />
                           </button>

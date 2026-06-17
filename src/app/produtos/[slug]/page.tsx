@@ -14,11 +14,11 @@ export async function generateMetadata({ params }: Props) {
     const produto = await prisma.produto.findUnique({ where: { slug: params.slug } })
     if (!produto) return { title: 'Produto não encontrado' }
     return {
-      title: `${produto.nome} | Bella Bijuteria`,
+      title: `${produto.nome} | Charme Final Acessórios`,
       description: produto.descricao,
     }
   } catch {
-    return { title: 'Bella Bijuteria' }
+    return { title: 'Charme Final Acessórios' }
   }
 }
 

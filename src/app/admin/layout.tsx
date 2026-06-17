@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { AdminSidebar } from './admin-sidebar'
 
 export const metadata = {
-  title: 'Admin | Bella Bijuteria',
+  title: 'Admin | Charme Final Acessórios',
 }
 
 export default async function AdminLayout({
@@ -18,7 +18,7 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-cream-100 flex">
       <AdminSidebar />
       <main className="flex-1 ml-64 p-8 text-gray-900">
         {children}

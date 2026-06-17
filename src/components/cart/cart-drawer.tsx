@@ -30,24 +30,24 @@ export function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 z-50 h-full w-full max-w-md bg-dark-900 shadow-2xl flex flex-col"
+            className="fixed right-0 top-0 z-50 h-full w-full max-w-md bg-cream-50 warm-shadow flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-dark-700">
+            <div className="flex items-center justify-between p-6 border-b border-cream-300">
               <div className="flex items-center gap-3">
-                <ShoppingBag className="w-6 h-6 text-gold-500" />
-                <h2 className="text-xl font-heading font-semibold text-white">
+                <ShoppingBag className="w-6 h-6 text-terracotta-500" />
+                <h2 className="text-xl font-heading font-semibold text-forest-900">
                   Seu Carrinho
                 </h2>
                 {totalItems() > 0 && (
-                  <span className="bg-gold-500 text-dark-900 text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                  <span className="bg-terracotta-500 text-cream-50 text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
                     {totalItems()}
                   </span>
                 )}
               </div>
               <button
                 onClick={closeCart}
-                className="p-2 rounded-lg hover:bg-dark-700 transition-colors text-white"
+                className="p-2 rounded-lg hover:bg-cream-200 transition-colors text-forest-900"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -57,9 +57,9 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
-                  <ShoppingBag className="w-16 h-16 text-dark-600 mb-4" />
-                  <p className="text-dark-300 text-lg">Seu carrinho está vazio</p>
-                  <p className="text-dark-500 text-sm mt-2">Adicione produtos para continuar</p>
+                  <ShoppingBag className="w-16 h-16 text-cream-400 mb-4" />
+                  <p className="text-forest-700 text-lg">Seu carrinho está vazio</p>
+                  <p className="text-forest-400 text-sm mt-2">Adicione produtos para continuar</p>
                   <Button
                     onClick={closeCart}
                     variant="luxury"
@@ -77,7 +77,7 @@ export function CartDrawer() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className="flex gap-4 bg-dark-800 rounded-xl p-4"
+                      className="flex gap-4 bg-white rounded-xl p-4 soft-shadow"
                     >
                       <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                         <Image
@@ -89,21 +89,21 @@ export function CartDrawer() {
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-white font-medium text-sm truncate">{item.nome}</h3>
-                        <p className="text-gold-500 font-bold mt-1">{formatCurrency(item.preco)}</p>
+                        <h3 className="text-forest-900 font-medium text-sm truncate">{item.nome}</h3>
+                        <p className="text-terracotta-500 font-bold mt-1">{formatCurrency(item.preco)}</p>
 
                         <div className="flex items-center gap-3 mt-3">
-                          <div className="flex items-center gap-2 bg-dark-700 rounded-lg p-1">
+                          <div className="flex items-center gap-2 bg-cream-200 rounded-lg p-1">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantidade - 1)}
-                              className="p-1 hover:text-gold-500 transition-colors text-white"
+                              className="p-1 hover:text-terracotta-500 transition-colors text-forest-900"
                             >
                               <Minus className="w-3 h-3" />
                             </button>
-                            <span className="text-white text-sm w-6 text-center">{item.quantidade}</span>
+                            <span className="text-forest-900 text-sm w-6 text-center">{item.quantidade}</span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantidade + 1)}
-                              className="p-1 hover:text-gold-500 transition-colors text-white"
+                              className="p-1 hover:text-terracotta-500 transition-colors text-forest-900"
                             >
                               <Plus className="w-3 h-3" />
                             </button>
@@ -125,12 +125,12 @@ export function CartDrawer() {
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="p-6 border-t border-dark-700 space-y-4">
+              <div className="p-6 border-t border-cream-300 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-dark-300">Subtotal</span>
-                  <span className="text-white font-bold text-xl">{formatCurrency(total())}</span>
+                  <span className="text-forest-700">Subtotal</span>
+                  <span className="text-forest-900 font-bold text-xl">{formatCurrency(total())}</span>
                 </div>
-                <p className="text-dark-400 text-xs">Frete calculado no checkout</p>
+                <p className="text-forest-400 text-xs">Frete calculado no checkout</p>
 
                 <Button
                   variant="luxury"
@@ -147,7 +147,7 @@ export function CartDrawer() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full text-dark-300"
+                  className="w-full text-forest-700"
                   onClick={closeCart}
                 >
                   Continuar Comprando

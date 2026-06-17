@@ -11,30 +11,64 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        gold: {
-          50: "#fdf8ec",
-          100: "#faefd4",
-          200: "#f4dca3",
-          300: "#edc36b",
-          400: "#e5a63a",
-          500: "#d4af37",
-          600: "#c9a84c",
-          700: "#a67c28",
-          800: "#8a6421",
-          900: "#724f1f",
+        // Verde sálvia (asas do logo) — cor da marca
+        sage: {
+          50: "#f4f6f0",
+          100: "#e6ebdc",
+          200: "#cfd9bd",
+          300: "#aec095",
+          400: "#8fa473",
+          500: "#728757",
+          600: "#5a6c44",
+          700: "#475537",
+          800: "#3a4530",
+          900: "#323b2a",
         },
-        dark: {
-          50: "#f0ebf8",
-          100: "#ddd1f0",
-          200: "#bca8e3",
-          300: "#9477d0",
-          400: "#7348b8",
-          500: "#5c2d9e",
-          600: "#4a2080",
-          700: "#3a1a63",
-          800: "#2a1249",
-          900: "#1a0a2e",
-          950: "#0d0518",
+        // Terracota / cobre (cabelo do logo) — cor de destaque/ação
+        terracotta: {
+          50: "#fbf2ec",
+          100: "#f5ddcf",
+          200: "#e9b89f",
+          300: "#db8f6b",
+          400: "#cc7049",
+          500: "#b95a39",
+          600: "#9c4830",
+          700: "#7d3a29",
+          800: "#663125",
+          900: "#562b22",
+        },
+        // Creme / bege (fundo do logo) — fundo do site
+        cream: {
+          50: "#fdfbf6",
+          100: "#f8f1e4",
+          200: "#f1e6d1",
+          300: "#e7d4b4",
+          400: "#dabd91",
+          500: "#cca572",
+          600: "#b88a55",
+          700: "#996f45",
+          800: "#7c5a3c",
+          900: "#664b34",
+        },
+        // Verde floresta profundo (contornos/texto do logo) — texto e seções escuras
+        forest: {
+          50: "#eef2ef",
+          100: "#d7e0d9",
+          200: "#b0c2b5",
+          300: "#829c8a",
+          400: "#5c7765",
+          500: "#445d4c",
+          600: "#34493c",
+          700: "#2a3b31",
+          800: "#233028",
+          900: "#1c2620",
+          950: "#121913",
+        },
+        // Mostarda dourada (detalhes do logo) — pequenos acentos
+        mustard: {
+          400: "#d9b24b",
+          500: "#c69a35",
+          600: "#a87f2a",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -71,8 +105,8 @@ const config: Config = {
         ring: "hsl(var(--ring))",
       },
       fontFamily: {
-        heading: ["var(--font-cormorant)", "serif"],
-        body: ["var(--font-inter)", "sans-serif"],
+        heading: ["var(--font-fraunces)", "Georgia", "serif"],
+        body: ["var(--font-mulish)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

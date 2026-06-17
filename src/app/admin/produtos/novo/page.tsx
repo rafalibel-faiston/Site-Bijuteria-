@@ -93,7 +93,7 @@ export default function NovoProduto() {
                 required
                 value={form.nome}
                 onChange={e => handleNome(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
                 placeholder="Ex: Colar Pérola Elegante"
               />
             </div>
@@ -103,7 +103,7 @@ export default function NovoProduto() {
                 type="text"
                 value={form.slug}
                 onChange={e => setForm(prev => ({ ...prev, slug: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50 bg-gray-50 text-gray-500"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50 bg-gray-50 text-gray-500"
                 placeholder="gerado-automaticamente"
               />
             </div>
@@ -113,7 +113,7 @@ export default function NovoProduto() {
                 required
                 value={form.categoria}
                 onChange={e => setForm(prev => ({ ...prev, categoria: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
               >
                 {categorias.map(cat => <option key={cat}>{cat}</option>)}
               </select>
@@ -124,7 +124,7 @@ export default function NovoProduto() {
                 rows={4}
                 value={form.descricao}
                 onChange={e => setForm(prev => ({ ...prev, descricao: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50 resize-none"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50 resize-none"
                 placeholder="Descreva o produto, materiais, dimensões..."
               />
             </div>
@@ -149,7 +149,7 @@ export default function NovoProduto() {
                 step="0.01"
                 value={form.preco}
                 onChange={e => setForm(prev => ({ ...prev, preco: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
                 placeholder="0,00"
               />
             </div>
@@ -161,7 +161,7 @@ export default function NovoProduto() {
                 step="0.01"
                 value={form.precoOriginal}
                 onChange={e => setForm(prev => ({ ...prev, precoOriginal: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
                 placeholder="Para promoção"
               />
             </div>
@@ -173,7 +173,7 @@ export default function NovoProduto() {
                 min="0"
                 value={form.estoque}
                 onChange={e => setForm(prev => ({ ...prev, estoque: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
                 placeholder="0"
               />
             </div>
@@ -184,7 +184,7 @@ export default function NovoProduto() {
                 min="0"
                 value={form.estoqueMinimo}
                 onChange={e => setForm(prev => ({ ...prev, estoqueMinimo: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
               />
             </div>
           </div>
@@ -194,7 +194,7 @@ export default function NovoProduto() {
               <select
                 value={form.material}
                 onChange={e => setForm(prev => ({ ...prev, material: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
               >
                 <option value="">Selecione...</option>
                 {materiais.map(m => <option key={m}>{m}</option>)}
@@ -208,7 +208,7 @@ export default function NovoProduto() {
                 step="0.1"
                 value={form.peso}
                 onChange={e => setForm(prev => ({ ...prev, peso: e.target.value }))}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
                 placeholder="Ex: 25"
               />
             </div>
@@ -232,7 +232,7 @@ export default function NovoProduto() {
                   value={img}
                   onChange={e => updateImagem(i, e.target.value)}
                   placeholder="https://..."
-                  className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50"
+                  className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b95a39]/50"
                 />
                 {imagens.length > 1 && (
                   <button type="button" onClick={() => removeImagem(i)} className="p-2.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
@@ -245,7 +245,7 @@ export default function NovoProduto() {
           <button
             type="button"
             onClick={addImagem}
-            className="flex items-center gap-2 text-sm text-[#C9A84C] hover:text-[#B8962A] font-medium"
+            className="flex items-center gap-2 text-sm text-[#b95a39] hover:text-[#9c4830] font-medium"
           >
             <Plus className="w-4 h-4" />
             Adicionar imagem
@@ -264,7 +264,7 @@ export default function NovoProduto() {
               type="checkbox"
               checked={form.ativo}
               onChange={e => setForm(prev => ({ ...prev, ativo: e.target.checked }))}
-              className="w-5 h-5 rounded accent-[#C9A84C]"
+              className="w-5 h-5 rounded accent-[#b95a39]"
             />
             <div>
               <p className="font-medium text-gray-900">Produto ativo</p>
@@ -281,7 +281,7 @@ export default function NovoProduto() {
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8962A] disabled:opacity-50 text-white px-8 py-3 rounded-xl font-medium transition-colors"
+            className="flex items-center gap-2 bg-[#b95a39] hover:bg-[#9c4830] disabled:opacity-50 text-white px-8 py-3 rounded-xl font-medium transition-colors"
           >
             <Save className="w-5 h-5" />
             {saving ? 'Salvando...' : 'Salvar Produto'}

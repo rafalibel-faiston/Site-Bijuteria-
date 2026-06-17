@@ -1,27 +1,28 @@
 import type { Metadata } from 'next'
-import { Inter, Cormorant_Garamond } from 'next/font/google'
+import { Mulish, Fraunces } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { CartDrawer } from '@/components/cart/cart-drawer'
 
-const inter = Inter({
+const mulish = Mulish({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-mulish',
   display: 'swap',
 })
 
-const cormorant = Cormorant_Garamond({
+const fraunces = Fraunces({
   subsets: ['latin'],
-  variable: '--font-cormorant',
-  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-fraunces',
+  weight: ['300', '400', '500', '600', '700', '900'],
+  style: ['normal', 'italic'],
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Bella Bijuteria - Joias e Bijuterias de Alta Qualidade',
-  description: 'Descubra nossa coleção exclusiva de joias e bijuterias. Anéis, colares, brincos, pulseiras e muito mais com preços especiais.',
-  keywords: 'bijuteria, joias, anéis, colares, brincos, pulseiras, acessórios femininos',
+  title: 'Charme Final Acessórios - Bijoux e Acessórios',
+  description: 'Charme Final Acessórios — bijoux, semijoias e acessórios com charme. Anéis, colares, brincos, pulseiras e muito mais.',
+  keywords: 'bijoux, bijuteria, acessórios, semijoias, anéis, colares, brincos, pulseiras, charme final',
 }
 
 export default function RootLayout({
@@ -30,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${cormorant.variable}`}>
-      <body className="bg-dark-950 text-white min-h-screen">
+    <html lang="pt-BR" className={`${mulish.variable} ${fraunces.variable}`}>
+      <body className="bg-cream-100 text-forest-900 min-h-screen">
         <Header />
         <CartDrawer />
         <main>

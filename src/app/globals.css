@@ -2,30 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
-
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 47 100% 52%;
-    --primary-foreground: 240 10% 3.9%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    /* Tema claro vintage — creme, sálvia, terracota, floresta */
+    --background: 38 50% 96%;          /* creme */
+    --foreground: 145 16% 18%;         /* verde floresta */
+    --card: 0 0% 100%;
+    --card-foreground: 145 16% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 145 16% 18%;
+    --primary: 14 53% 47%;             /* terracota */
+    --primary-foreground: 38 50% 97%;
+    --secondary: 86 22% 49%;           /* sálvia */
+    --secondary-foreground: 38 50% 97%;
+    --muted: 38 35% 90%;
+    --muted-foreground: 145 10% 40%;
+    --accent: 86 22% 88%;
+    --accent-foreground: 145 16% 18%;
+    --destructive: 0 65% 48%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 47 100% 52%;
-    --radius: 0.5rem;
+    --border: 38 25% 84%;
+    --input: 38 25% 84%;
+    --ring: 14 53% 47%;
+    --radius: 0.75rem;
   }
 
   * {
@@ -33,7 +32,7 @@
   }
 
   body {
-    @apply bg-dark-950 text-white font-body antialiased;
+    @apply bg-cream-100 text-forest-900 font-body antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -42,45 +41,53 @@
 }
 
 @layer utilities {
-  .text-gradient-gold {
-    @apply bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text text-transparent;
+  .text-gradient-brand {
+    @apply bg-gradient-to-r from-terracotta-500 to-sage-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-sage {
+    @apply bg-gradient-to-r from-sage-600 to-forest-600 bg-clip-text text-transparent;
   }
 
   .bg-shimmer {
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(201, 168, 76, 0.1) 50%,
+      rgba(185, 90, 57, 0.12) 50%,
       transparent 100%
     );
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
   }
 
-  .gold-border {
-    @apply border border-gold-500/30 hover:border-gold-500 transition-colors;
+  .brand-border {
+    @apply border border-sage-300/50 hover:border-sage-500 transition-colors;
   }
 
-  .luxury-shadow {
-    box-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
+  .soft-shadow {
+    box-shadow: 0 8px 30px rgba(68, 93, 76, 0.10);
+  }
+
+  .warm-shadow {
+    box-shadow: 0 0 40px rgba(185, 90, 57, 0.12);
   }
 }
 
-/* Custom scrollbar */
+/* Scrollbar personalizada */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a0a2e;
+  background: #f1e6d1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c9a84c;
-  border-radius: 3px;
+  background: #8fa473;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4af37;
+  background: #728757;
 }

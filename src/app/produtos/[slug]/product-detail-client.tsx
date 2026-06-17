@@ -42,19 +42,19 @@ export function ProductDetailClient({ produto, related }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-dark-950 pt-24 pb-20">
+    <div className="min-h-screen bg-cream-100 pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm text-dark-400 mb-8">
-          <Link href="/" className="hover:text-gold-400 transition-colors">Início</Link>
+        <div className="flex items-center gap-2 text-sm text-forest-500 mb-8">
+          <Link href="/" className="hover:text-terracotta-500 transition-colors">Início</Link>
           <span>/</span>
-          <Link href="/produtos" className="hover:text-gold-400 transition-colors">Produtos</Link>
+          <Link href="/produtos" className="hover:text-terracotta-500 transition-colors">Produtos</Link>
           <span>/</span>
-          <Link href={`/produtos?categoria=${produto.categoria}`} className="hover:text-gold-400 transition-colors">
+          <Link href={`/produtos?categoria=${produto.categoria}`} className="hover:text-terracotta-500 transition-colors">
             {produto.categoria}
           </Link>
           <span>/</span>
-          <span className="text-white truncate">{produto.nome}</span>
+          <span className="text-forest-900 truncate">{produto.nome}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
@@ -88,7 +88,7 @@ export function ProductDetailClient({ produto, related }: Props) {
                   <Badge variant="danger">Esgotado</Badge>
                 )}
               </div>
-              <h1 className="font-heading text-3xl lg:text-4xl font-bold text-white mb-4">
+              <h1 className="font-heading text-3xl lg:text-4xl font-bold text-forest-900 mb-4">
                 {produto.nome}
               </h1>
 
@@ -96,20 +96,20 @@ export function ProductDetailClient({ produto, related }: Props) {
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < 4 ? 'fill-gold-400 text-gold-400' : 'text-dark-600'}`} />
+                    <Star key={i} className={`w-4 h-4 ${i < 4 ? 'fill-mustard-400 text-mustard-400' : 'text-cream-300'}`} />
                   ))}
                 </div>
-                <span className="text-dark-400 text-sm">(4.8) • {produto.vendas} vendas</span>
+                <span className="text-forest-500 text-sm">(4.8) • {produto.vendas} vendas</span>
               </div>
             </div>
 
             {/* Price */}
             <div className="flex items-end gap-4">
-              <span className="font-heading text-4xl font-bold text-gold-400">
+              <span className="font-heading text-4xl font-bold text-terracotta-500">
                 {formatCurrency(produto.preco)}
               </span>
               {produto.precoOriginal && (
-                <span className="text-dark-500 text-xl line-through mb-1">
+                <span className="text-forest-400 text-xl line-through mb-1">
                   {formatCurrency(produto.precoOriginal)}
                 </span>
               )}
@@ -117,30 +117,30 @@ export function ProductDetailClient({ produto, related }: Props) {
 
             {/* Description */}
             {produto.descricao && (
-              <p className="text-dark-300 leading-relaxed">{produto.descricao}</p>
+              <p className="text-forest-600 leading-relaxed">{produto.descricao}</p>
             )}
 
             {/* Product details */}
-            <div className="bg-dark-800 rounded-xl p-5 space-y-3 border border-dark-700">
+            <div className="bg-cream-50 rounded-xl p-5 space-y-3 border border-cream-300 soft-shadow">
               {produto.material && (
                 <div className="flex justify-between text-sm">
-                  <span className="text-dark-400">Material</span>
-                  <span className="text-white font-medium">{produto.material}</span>
+                  <span className="text-forest-500">Material</span>
+                  <span className="text-forest-900 font-medium">{produto.material}</span>
                 </div>
               )}
               {produto.peso && (
                 <div className="flex justify-between text-sm">
-                  <span className="text-dark-400">Peso</span>
-                  <span className="text-white font-medium">{produto.peso}g</span>
+                  <span className="text-forest-500">Peso</span>
+                  <span className="text-forest-900 font-medium">{produto.peso}g</span>
                 </div>
               )}
               <div className="flex justify-between text-sm">
-                <span className="text-dark-400">Categoria</span>
-                <span className="text-white font-medium">{produto.categoria}</span>
+                <span className="text-forest-500">Categoria</span>
+                <span className="text-forest-900 font-medium">{produto.categoria}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-dark-400">Disponibilidade</span>
-                <span className={`font-medium ${produto.estoque > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                <span className="text-forest-500">Disponibilidade</span>
+                <span className={`font-medium ${produto.estoque > 0 ? 'text-sage-600' : 'text-red-500'}`}>
                   {produto.estoque > 0 ? `${produto.estoque} em estoque` : 'Esgotado'}
                 </span>
               </div>
@@ -149,18 +149,18 @@ export function ProductDetailClient({ produto, related }: Props) {
             {/* Quantity */}
             {produto.estoque > 0 && (
               <div className="flex items-center gap-4">
-                <label className="text-dark-300 text-sm">Quantidade:</label>
-                <div className="flex items-center gap-3 bg-dark-800 rounded-xl border border-dark-700 p-1">
+                <label className="text-forest-600 text-sm">Quantidade:</label>
+                <div className="flex items-center gap-3 bg-cream-50 rounded-xl border border-cream-300 p-1">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-8 h-8 flex items-center justify-center text-white hover:text-gold-400 transition-colors"
+                    className="w-8 h-8 flex items-center justify-center text-forest-900 hover:text-terracotta-500 transition-colors"
                   >
                     -
                   </button>
-                  <span className="text-white w-8 text-center font-medium">{quantity}</span>
+                  <span className="text-forest-900 w-8 text-center font-medium">{quantity}</span>
                   <button
                     onClick={() => setQuantity(Math.min(produto.estoque, quantity + 1))}
-                    className="w-8 h-8 flex items-center justify-center text-white hover:text-gold-400 transition-colors"
+                    className="w-8 h-8 flex items-center justify-center text-forest-900 hover:text-terracotta-500 transition-colors"
                   >
                     +
                   </button>
@@ -195,18 +195,18 @@ export function ProductDetailClient({ produto, related }: Props) {
             </div>
 
             {/* Guarantees */}
-            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-dark-700">
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-cream-300">
               <div className="text-center">
-                <Truck className="w-5 h-5 text-gold-500 mx-auto mb-2" />
-                <p className="text-dark-400 text-xs">Frete para todo Brasil</p>
+                <Truck className="w-5 h-5 text-sage-600 mx-auto mb-2" />
+                <p className="text-forest-500 text-xs">Frete para todo Brasil</p>
               </div>
               <div className="text-center">
-                <Shield className="w-5 h-5 text-gold-500 mx-auto mb-2" />
-                <p className="text-dark-400 text-xs">Compra Segura</p>
+                <Shield className="w-5 h-5 text-sage-600 mx-auto mb-2" />
+                <p className="text-forest-500 text-xs">Compra Segura</p>
               </div>
               <div className="text-center">
-                <RefreshCw className="w-5 h-5 text-gold-500 mx-auto mb-2" />
-                <p className="text-dark-400 text-xs">30 dias para troca</p>
+                <RefreshCw className="w-5 h-5 text-sage-600 mx-auto mb-2" />
+                <p className="text-forest-500 text-xs">30 dias para troca</p>
               </div>
             </div>
           </motion.div>
@@ -215,7 +215,7 @@ export function ProductDetailClient({ produto, related }: Props) {
         {/* Related Products */}
         {related.length > 0 && (
           <div>
-            <h2 className="font-heading text-3xl font-bold text-white mb-8">
+            <h2 className="font-heading text-3xl font-bold text-forest-900 mb-8">
               Você também pode gostar
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -230,7 +230,7 @@ export function ProductDetailClient({ produto, related }: Props) {
         <div className="mt-12">
           <Link
             href="/produtos"
-            className="flex items-center gap-2 text-dark-400 hover:text-gold-400 transition-colors"
+            className="flex items-center gap-2 text-forest-500 hover:text-terracotta-500 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Voltar para produtos

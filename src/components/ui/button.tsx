@@ -8,13 +8,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gold-500 text-dark-900 hover:bg-gold-600 font-semibold",
+        default: "bg-terracotta-500 text-cream-50 hover:bg-terracotta-600 font-semibold",
         destructive: "bg-red-500 text-white hover:bg-red-600",
-        outline: "border border-gold-500 bg-transparent text-gold-500 hover:bg-gold-500 hover:text-dark-900",
-        secondary: "bg-dark-800 text-white hover:bg-dark-700",
-        ghost: "hover:bg-gold-500/10 hover:text-gold-500",
-        link: "text-gold-500 underline-offset-4 hover:underline",
-        luxury: "bg-gradient-to-r from-gold-600 to-gold-400 text-dark-900 hover:from-gold-700 hover:to-gold-500 font-semibold shadow-lg shadow-gold-500/25",
+        outline: "border border-terracotta-500 bg-transparent text-terracotta-500 hover:bg-terracotta-500 hover:text-cream-50",
+        secondary: "bg-sage-100 text-forest-900 hover:bg-sage-200",
+        ghost: "hover:bg-terracotta-500/10 hover:text-terracotta-500",
+        link: "text-terracotta-500 underline-offset-4 hover:underline",
+        luxury: "bg-gradient-to-r from-terracotta-500 to-sage-600 text-cream-50 hover:from-terracotta-600 hover:to-sage-700 font-semibold warm-shadow",
       },
       size: {
         default: "h-10 px-4 py-2",

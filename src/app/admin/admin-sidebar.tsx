@@ -27,16 +27,16 @@ export function AdminSidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-64 bg-dark-900 border-r border-dark-700 flex flex-col z-30">
+    <aside className="fixed left-0 top-0 h-full w-64 bg-forest-900 border-r border-forest-700 flex flex-col z-30">
       {/* Logo */}
-      <div className="p-6 border-b border-dark-700">
+      <div className="p-6 border-b border-forest-700">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center">
-            <Gem className="w-5 h-5 text-dark-900" />
+          <div className="w-9 h-9 bg-gradient-to-br from-terracotta-400 to-sage-500 rounded-xl flex items-center justify-center">
+            <Gem className="w-5 h-5 text-cream-50" />
           </div>
           <div>
-            <p className="text-white font-semibold text-sm">Bella Bijuteria</p>
-            <p className="text-dark-500 text-xs">Admin</p>
+            <p className="text-cream-50 font-semibold text-sm">Charme Final Acessórios</p>
+            <p className="text-sage-200 text-xs">Admin</p>
           </div>
         </div>
       </div>
@@ -51,11 +51,11 @@ export function AdminSidebar() {
               href={href}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                 isActive
-                  ? 'bg-gold-500/20 text-gold-400 border border-gold-500/30'
-                  : 'text-dark-400 hover:text-white hover:bg-dark-800'
+                  ? 'bg-sage-500/20 text-sage-200 border border-sage-500/30'
+                  : 'text-cream-50 hover:text-cream-50 hover:bg-forest-800'
               }`}
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'text-gold-400' : ''}`} />
+              <Icon className={`w-5 h-5 ${isActive ? 'text-sage-200' : ''}`} />
               {label}
             </Link>
           )
@@ -63,10 +63,10 @@ export function AdminSidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-dark-700">
+      <div className="p-4 border-t border-forest-700">
         <Link
           href="/"
-          className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-dark-400 hover:text-white hover:bg-dark-800 transition-all mb-1"
+          className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-cream-50 hover:text-cream-50 hover:bg-forest-800 transition-all mb-1"
         >
           <Gem className="w-4 h-4" />
           Ver Site

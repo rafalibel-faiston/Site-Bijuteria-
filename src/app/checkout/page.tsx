@@ -93,18 +93,18 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-dark-950 pt-24 pb-20 flex flex-col items-center justify-center text-center px-4">
-        <p className="text-white text-xl mb-4">Seu carrinho está vazio</p>
+      <div className="min-h-screen bg-cream-100 pt-24 pb-20 flex flex-col items-center justify-center text-center px-4">
+        <p className="text-forest-900 text-xl mb-4">Seu carrinho está vazio</p>
         <Button onClick={() => router.push('/produtos')}>Ver produtos</Button>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-dark-950 pt-24 pb-20">
+    <div className="min-h-screen bg-cream-100 pt-24 pb-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="font-heading text-4xl font-bold text-white mb-8">
-          Finalizar <span className="text-gradient-gold">Compra</span>
+        <h1 className="font-heading text-4xl font-bold text-forest-900 mb-8">
+          Finalizar <span className="text-gradient-brand">Compra</span>
         </h1>
 
         {/* Steps */}
@@ -116,12 +116,12 @@ export default function CheckoutPage() {
           ].map(({ n, label }, i) => (
             <div key={n} className="flex items-center gap-2">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-                step >= n ? 'bg-gold-500 text-dark-900' : 'bg-dark-700 text-dark-400'
+                step >= n ? 'bg-terracotta-500 text-cream-50' : 'bg-cream-200 text-forest-400'
               }`}>
                 {n}
               </div>
-              <span className={`text-sm ${step >= n ? 'text-white' : 'text-dark-500'}`}>{label}</span>
-              {i < 2 && <ChevronRight className="w-4 h-4 text-dark-600" />}
+              <span className={`text-sm ${step >= n ? 'text-forest-900' : 'text-forest-400'}`}>{label}</span>
+              {i < 2 && <ChevronRight className="w-4 h-4 text-forest-400" />}
             </div>
           ))}
         </div>
@@ -134,107 +134,107 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-dark-800 rounded-2xl border border-dark-700 p-6"
+                className="bg-cream-50 rounded-2xl border border-cream-300 p-6"
               >
-                <h2 className="text-white font-semibold text-lg mb-6">Dados de Entrega</h2>
+                <h2 className="text-forest-900 font-semibold text-lg mb-6">Dados de Entrega</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2">
-                    <label className="text-dark-300 text-sm mb-1.5 block">Nome completo *</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">Nome completo *</label>
                     <input
                       {...register('nome')}
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white placeholder-dark-500 focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 placeholder-forest-400 focus:outline-none focus:border-sage-500 text-sm"
                       placeholder="Seu nome completo"
                     />
                     {errors.nome && <p className="text-red-400 text-xs mt-1">{errors.nome.message}</p>}
                   </div>
 
                   <div>
-                    <label className="text-dark-300 text-sm mb-1.5 block">Email *</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">Email *</label>
                     <input
                       {...register('email')}
                       type="email"
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white placeholder-dark-500 focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 placeholder-forest-400 focus:outline-none focus:border-sage-500 text-sm"
                       placeholder="seu@email.com"
                     />
                     {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
                   </div>
 
                   <div>
-                    <label className="text-dark-300 text-sm mb-1.5 block">Telefone *</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">Telefone *</label>
                     <input
                       {...register('telefone')}
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white placeholder-dark-500 focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 placeholder-forest-400 focus:outline-none focus:border-sage-500 text-sm"
                       placeholder="(11) 99999-9999"
                     />
                     {errors.telefone && <p className="text-red-400 text-xs mt-1">{errors.telefone.message}</p>}
                   </div>
 
                   <div>
-                    <label className="text-dark-300 text-sm mb-1.5 block">CEP *</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">CEP *</label>
                     <input
                       {...register('cep')}
                       onBlur={(e) => searchCep(e.target.value)}
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white placeholder-dark-500 focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 placeholder-forest-400 focus:outline-none focus:border-sage-500 text-sm"
                       placeholder="00000-000"
                     />
                     {errors.cep && <p className="text-red-400 text-xs mt-1">{errors.cep.message}</p>}
                   </div>
 
                   <div>
-                    <label className="text-dark-300 text-sm mb-1.5 block">Número *</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">Número *</label>
                     <input
                       {...register('numero')}
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white placeholder-dark-500 focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 placeholder-forest-400 focus:outline-none focus:border-sage-500 text-sm"
                       placeholder="123"
                     />
                     {errors.numero && <p className="text-red-400 text-xs mt-1">{errors.numero.message}</p>}
                   </div>
 
                   <div className="md:col-span-2">
-                    <label className="text-dark-300 text-sm mb-1.5 block">Endereço *</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">Endereço *</label>
                     <input
                       {...register('logradouro')}
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white placeholder-dark-500 focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 placeholder-forest-400 focus:outline-none focus:border-sage-500 text-sm"
                       placeholder="Rua, Avenida..."
                     />
                     {errors.logradouro && <p className="text-red-400 text-xs mt-1">{errors.logradouro.message}</p>}
                   </div>
 
                   <div>
-                    <label className="text-dark-300 text-sm mb-1.5 block">Complemento</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">Complemento</label>
                     <input
                       {...register('complemento')}
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white placeholder-dark-500 focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 placeholder-forest-400 focus:outline-none focus:border-sage-500 text-sm"
                       placeholder="Apto, Bloco... (opcional)"
                     />
                   </div>
 
                   <div>
-                    <label className="text-dark-300 text-sm mb-1.5 block">Bairro *</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">Bairro *</label>
                     <input
                       {...register('bairro')}
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white placeholder-dark-500 focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 placeholder-forest-400 focus:outline-none focus:border-sage-500 text-sm"
                       placeholder="Seu bairro"
                     />
                     {errors.bairro && <p className="text-red-400 text-xs mt-1">{errors.bairro.message}</p>}
                   </div>
 
                   <div>
-                    <label className="text-dark-300 text-sm mb-1.5 block">Cidade *</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">Cidade *</label>
                     <input
                       {...register('cidade')}
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white placeholder-dark-500 focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 placeholder-forest-400 focus:outline-none focus:border-sage-500 text-sm"
                       placeholder="Sua cidade"
                     />
                     {errors.cidade && <p className="text-red-400 text-xs mt-1">{errors.cidade.message}</p>}
                   </div>
 
                   <div>
-                    <label className="text-dark-300 text-sm mb-1.5 block">Estado *</label>
+                    <label className="text-forest-600 text-sm mb-1.5 block">Estado *</label>
                     <select
                       {...register('estado')}
-                      className="w-full bg-dark-700 border border-dark-600 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-gold-500 text-sm"
+                      className="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-forest-900 focus:outline-none focus:border-sage-500 text-sm"
                     >
                       <option value="">Selecione...</option>
                       {['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'].map(uf => (
@@ -251,9 +251,9 @@ export default function CheckoutPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-dark-800 rounded-2xl border border-dark-700 p-6"
+                className="bg-cream-50 rounded-2xl border border-cream-300 p-6"
               >
-                <h2 className="text-white font-semibold text-lg mb-6">Forma de Pagamento</h2>
+                <h2 className="text-forest-900 font-semibold text-lg mb-6">Forma de Pagamento</h2>
 
                 <div className="grid grid-cols-3 gap-4">
                   {[
@@ -265,8 +265,8 @@ export default function CheckoutPage() {
                       key={value}
                       className={`flex flex-col items-center gap-2 p-4 rounded-xl border cursor-pointer transition-all ${
                         formaPagamento === value
-                          ? 'border-gold-500 bg-gold-500/10'
-                          : 'border-dark-600 hover:border-dark-500'
+                          ? 'border-terracotta-500 bg-terracotta-500/10'
+                          : 'border-cream-300 hover:border-sage-300'
                       }`}
                     >
                       <input
@@ -275,18 +275,18 @@ export default function CheckoutPage() {
                         {...register('formaPagamento')}
                         className="sr-only"
                       />
-                      <Icon className={`w-6 h-6 ${formaPagamento === value ? 'text-gold-400' : 'text-dark-400'}`} />
-                      <span className={`text-sm font-medium ${formaPagamento === value ? 'text-white' : 'text-dark-300'}`}>
+                      <Icon className={`w-6 h-6 ${formaPagamento === value ? 'text-terracotta-500' : 'text-forest-400'}`} />
+                      <span className={`text-sm font-medium ${formaPagamento === value ? 'text-forest-900' : 'text-forest-600'}`}>
                         {label}
                       </span>
-                      <span className="text-xs text-dark-500 text-center">{desc}</span>
+                      <span className="text-xs text-forest-400 text-center">{desc}</span>
                     </label>
                   ))}
                 </div>
 
                 {formaPagamento === 'PIX' && (
-                  <div className="mt-4 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
-                    <p className="text-green-400 text-sm">
+                  <div className="mt-4 p-4 bg-sage-500/10 border border-sage-500/30 rounded-xl">
+                    <p className="text-sage-700 text-sm">
                       Após confirmar o pedido, você receberá um QR Code PIX para pagamento.
                     </p>
                   </div>
@@ -296,8 +296,8 @@ export default function CheckoutPage() {
 
             {/* Order Summary */}
             <div className="space-y-4">
-              <div className="bg-dark-800 rounded-2xl border border-dark-700 p-6 sticky top-24">
-                <h3 className="text-white font-semibold mb-4">Resumo do Pedido</h3>
+              <div className="bg-cream-50 rounded-2xl border border-cream-300 p-6 sticky top-24">
+                <h3 className="text-forest-900 font-semibold mb-4">Resumo do Pedido</h3>
 
                 <div className="space-y-3 mb-6 max-h-64 overflow-y-auto">
                   {items.map((item) => (
@@ -306,28 +306,28 @@ export default function CheckoutPage() {
                         <Image src={item.imagem} alt={item.nome} fill className="object-cover" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-white text-sm truncate">{item.nome}</p>
-                        <p className="text-dark-400 text-xs">Qty: {item.quantidade}</p>
+                        <p className="text-forest-900 text-sm truncate">{item.nome}</p>
+                        <p className="text-forest-500 text-xs">Qty: {item.quantidade}</p>
                       </div>
-                      <span className="text-gold-400 text-sm font-medium">
+                      <span className="text-terracotta-500 text-sm font-medium">
                         {formatCurrency(item.preco * item.quantidade)}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <div className="border-t border-dark-700 pt-4 space-y-2">
+                <div className="border-t border-cream-300 pt-4 space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-dark-400">Subtotal</span>
-                    <span className="text-white">{formatCurrency(total())}</span>
+                    <span className="text-forest-500">Subtotal</span>
+                    <span className="text-forest-900">{formatCurrency(total())}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-dark-400">Frete</span>
-                    <span className="text-white">A calcular</span>
+                    <span className="text-forest-500">Frete</span>
+                    <span className="text-forest-900">A calcular</span>
                   </div>
-                  <div className="flex justify-between font-semibold pt-2 border-t border-dark-700">
-                    <span className="text-white">Total</span>
-                    <span className="text-gold-400 text-lg">{formatCurrency(total())}</span>
+                  <div className="flex justify-between font-semibold pt-2 border-t border-cream-300">
+                    <span className="text-forest-900">Total</span>
+                    <span className="text-terracotta-500 text-lg">{formatCurrency(total())}</span>
                   </div>
                 </div>
 
@@ -341,7 +341,7 @@ export default function CheckoutPage() {
                   {loading ? 'Processando...' : 'Confirmar Pedido'}
                 </Button>
 
-                <p className="text-dark-500 text-xs text-center mt-3">
+                <p className="text-forest-400 text-xs text-center mt-3">
                   Seus dados estão protegidos
                 </p>
               </div>
