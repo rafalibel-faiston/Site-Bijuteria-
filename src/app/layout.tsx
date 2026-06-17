@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Mulish, Fraunces } from 'next/font/google'
 import './globals.css'
 import { SiteChrome } from '@/components/layout/site-chrome'
+import { Providers } from './providers'
 
 const mulish = Mulish({
   subsets: ['latin'],
@@ -31,7 +32,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${mulish.variable} ${fraunces.variable}`}>
       <body className="bg-cream-100 text-forest-900 min-h-screen">
-        <SiteChrome>{children}</SiteChrome>
+        <Providers>
+          <SiteChrome>{children}</SiteChrome>
+        </Providers>
       </body>
     </html>
   )

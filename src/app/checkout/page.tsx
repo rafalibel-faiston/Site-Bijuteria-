@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -54,6 +55,14 @@ export default function CheckoutPage() {
   })
 
   const formaPagamento = watch('formaPagamento')
+
+  // Pré-preenche nome/email do cliente logado.
+  const { data: session } = useSession()
+  useEffect(() => {
+    const u = session?.user as { name?: string | null; email?: string | null } | undefined
+    if (u?.name) setValue('nome', u.name)
+    if (u?.email) setValue('email', u.email)
+  }, [session, setValue])
 
   const frete = freteSelecionado ? parseFloat(freteSelecionado.preco) : 0
   const totalComFrete = total() + frete
@@ -203,6 +212,18 @@ export default function CheckoutPage() {
         <div className="mb-6 p-3 rounded-xl bg-mustard-400/15 border border-mustard-400/30 text-sm text-forest-700">
           <strong className="font-semibold">Modo teste:</strong> o pagamento é simulado e aprovado automaticamente para validar a baixa de estoque.
         </div>
+
+        {!session && (
+          <div className="mb-6 p-4 rounded-xl bg-sage-500/10 border border-sage-500/30 text-sm text-forest-700 flex items-center justify-between gap-3 flex-wrap">
+            <span>Já tem conta? Entre para acompanhar seus pedidos.</span>
+            <a
+              href={`/entrar?redirect=${encodeURIComponent('/checkout')}`}
+              className="text-terracotta-500 font-medium hover:text-terracotta-600 whitespace-nowrap"
+            >
+              Entrar / Cadastrar
+            </a>
+          </div>
+        )}
 
         {/* Steps */}
         <div className="flex items-center gap-4 mb-10">

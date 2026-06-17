@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { auth } from '@/lib/auth'
 
 export const dynamic = 'force-dynamic'
 
@@ -45,6 +46,10 @@ export async function POST(req: NextRequest) {
   // Pagamento simulado (modo teste): o pedido ja entra como CONFIRMADO/pago.
   const status = body.pagamentoSimulado ? 'CONFIRMADO' : 'PENDENTE'
 
+  // Vincula o pedido ao cliente logado (se houver sessao).
+  const session = await auth()
+  const userId = (session?.user as { id?: string } | undefined)?.id || null
+
   try {
     const pedido = await prisma.$transaction(async (tx) => {
       const count = await tx.pedido.count()
@@ -54,6 +59,7 @@ export async function POST(req: NextRequest) {
         data: {
           numeroPedido,
           status,
+          userId,
           clienteNome: body.clienteNome,
           clienteEmail: body.clienteEmail,
           clienteTelefone: body.clienteTelefone,

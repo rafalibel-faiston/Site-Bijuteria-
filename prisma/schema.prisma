@@ -15,8 +15,10 @@ model User {
   email     String   @unique
   password  String
   name      String
+  telefone  String?
   role      String   @default("ADMIN")
   createdAt DateTime @default(now())
+  pedidos   Pedido[]
 }
 
 model Produto {
@@ -43,6 +45,8 @@ model Pedido {
   id              String       @id @default(cuid())
   numeroPedido    String       @unique
   status          String       @default("PENDENTE")
+  userId          String?
+  user            User?        @relation(fields: [userId], references: [id])
   clienteNome     String
   clienteEmail    String
   clienteTelefone String?
