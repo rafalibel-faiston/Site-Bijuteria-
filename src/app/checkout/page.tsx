@@ -213,18 +213,6 @@ export default function CheckoutPage() {
           <strong className="font-semibold">Modo teste:</strong> o pagamento é simulado e aprovado automaticamente para validar a baixa de estoque.
         </div>
 
-        {!session && (
-          <div className="mb-6 p-4 rounded-xl bg-sage-500/10 border border-sage-500/30 text-sm text-forest-700 flex items-center justify-between gap-3 flex-wrap">
-            <span>Já tem conta? Entre para acompanhar seus pedidos.</span>
-            <a
-              href={`/entrar?redirect=${encodeURIComponent('/checkout')}`}
-              className="text-terracotta-500 font-medium hover:text-terracotta-600 whitespace-nowrap"
-            >
-              Entrar / Cadastrar
-            </a>
-          </div>
-        )}
-
         {/* Steps */}
         <div className="flex items-center gap-4 mb-10">
           {[

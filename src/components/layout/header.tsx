@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingBag, Search, Menu, X, Gem, User } from 'lucide-react'
-import { useSession } from 'next-auth/react'
+import { ShoppingBag, Search, Menu, X, Gem } from 'lucide-react'
 import { useCartStore } from '@/components/cart/cart-store'
 
 const navLinks = [
@@ -20,9 +19,6 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const { totalItems, openCart } = useCartStore()
-  const { data: session } = useSession()
-  const isCliente = (session?.user as { role?: string } | undefined)?.role !== 'ADMIN'
-  const contaHref = session ? (isCliente ? '/conta' : '/admin') : '/entrar'
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20)
@@ -82,15 +78,6 @@ export function Header() {
                 </button>
               </div>
             </form>
-
-            {/* Account */}
-            <Link
-              href={contaHref}
-              title={session ? 'Minha conta' : 'Entrar'}
-              className="relative p-2 text-forest-700 hover:text-terracotta-500 transition-colors"
-            >
-              <User className="w-6 h-6" />
-            </Link>
 
             {/* Cart */}
             <button
@@ -155,14 +142,6 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              <Link
-                href={contaHref}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2 text-forest-700 hover:text-terracotta-500 transition-colors py-2 text-lg border-t border-cream-300 pt-4"
-              >
-                <User className="w-5 h-5" />
-                {session ? 'Minha conta' : 'Entrar / Cadastrar'}
-              </Link>
             </div>
           </motion.div>
         )}

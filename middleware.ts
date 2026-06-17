@@ -7,8 +7,8 @@ export default auth((req) => {
   const { pathname, origin } = req.nextUrl
 
   const isAdminRoute = pathname.startsWith('/admin')
-  // Área do cliente e checkout exigem login.
-  const isClienteRoute = pathname.startsWith('/conta') || pathname.startsWith('/checkout')
+  // Área do cliente exige login. O checkout é como convidado (sem login).
+  const isClienteRoute = pathname.startsWith('/conta')
 
   // Painel admin: exige login E papel de administrador.
   if (isAdminRoute) {
@@ -31,5 +31,5 @@ export default auth((req) => {
 })
 
 export const config = {
-  matcher: ['/admin/:path*', '/conta/:path*', '/checkout/:path*', '/checkout'],
+  matcher: ['/admin/:path*', '/conta/:path*'],
 }
