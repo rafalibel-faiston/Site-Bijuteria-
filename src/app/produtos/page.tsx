@@ -46,6 +46,15 @@ function ProdutosContent() {
       .finally(() => setLoading(false))
   }, [search, selectedCategory, priceRange, sort])
 
+  // Sincroniza o estado com a URL (?categoria=, ?search=). Sem isto, ao clicar
+  // nos links do menu (ex.: /produtos?categoria=Colares) já estando nesta página,
+  // o Next faz navegação client-side sem remontar o componente — e a lista não
+  // atualizava (o "menu não direciona").
+  useEffect(() => {
+    setSearch(searchParams.get('search') || '')
+    setSelectedCategory(searchParams.get('categoria') || '')
+  }, [searchParams])
+
   const clearFilters = () => {
     setSearch('')
     setSelectedCategory('')
