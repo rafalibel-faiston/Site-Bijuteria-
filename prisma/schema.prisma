@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+}
+
+model Produto {
+  id            String       @id @default(cuid())
+  nome          String
+  slug          String       @unique
+  descricao     String?
+  preco         Float
+  precoOriginal Float?
+  imagens       String // JSON array of image URLs
+  categoria     String
+  material      String?
+  peso          Float? // peso em gramas para cálculo de frete
+  estoque       Int          @default(0)
+  estoqueMinimo Int          @default(5)
+  ativo         Boolean      @default(true)
+  vendas        Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  itens         ItemPedido[]
+}
+
+model Pedido {
+  id              String       @id @default(cuid())
+  numeroPedido    String       @unique
+  status          String       @default("PENDENTE")
+  clienteNome     String
+  clienteEmail    String
+  clienteTelefone String?
+  enderecoEntrega String // JSON with full address
+  cep             String
+  frete           Float        @default(0)
+  servicoCorreios String?
+  codigoRastreio  String?
+  subtotal        Float
+  total           Float
+  formaPagamento  String?
+  observacoes     String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  itens           ItemPedido[]
+}
+
+model ItemPedido {
+  id         String  @id @default(cuid())
+  pedidoId   String
+  produtoId  String
+  quantidade Int
+  precoUnit  Float
+  pedido     Pedido  @relation(fields: [pedidoId], references: [id])
+  produto    Produto @relation(fields: [produtoId], references: [id])
+}
+
+model Despesa {
+  id        String   @id @default(cuid())
+  descricao String
+  valor     Float
+  categoria String // FORNECEDOR, EMBALAGEM, MARKETING, CORREIOS, OUTROS
+  data      DateTime @default(now())
+  createdAt DateTime @default(now())
+}
+
+model ConfiguracaoLoja {
+  id                      String  @id @default(cuid())
+  nome                    String  @default("Minha Bijuteria")
+  cepOrigem               String  @default("01001000")
+  codigoEmpresaCorreios   String?
+  senhaCorreios           String?
+  contratoCorreios        String?
+}
