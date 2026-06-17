@@ -37,7 +37,7 @@ export default function CheckoutPage() {
   const [pagamento, setPagamento] = useState<'idle' | 'processando' | 'aprovado'>('idle')
 
   // Frete Correios
-  interface ServicoFrete { servico: string; codigo: string; preco: string; prazo: string }
+  interface ServicoFrete { servico: string; codigo: string; preco: string; prazo: string; estimado?: boolean }
   const [fretes, setFretes] = useState<ServicoFrete[]>([])
   const [freteSelecionado, setFreteSelecionado] = useState<ServicoFrete | null>(null)
   const [calculandoFrete, setCalculandoFrete] = useState(false)
@@ -417,7 +417,9 @@ export default function CheckoutPage() {
                             />
                             <Truck className={`w-5 h-5 ${ativo ? 'text-terracotta-500' : 'text-forest-400'}`} />
                             <div>
-                              <p className={`text-sm font-medium ${ativo ? 'text-forest-900' : 'text-forest-600'}`}>{f.servico}</p>
+                              <p className={`text-sm font-medium ${ativo ? 'text-forest-900' : 'text-forest-600'}`}>
+                                {f.servico}{f.estimado ? ' (estimado)' : ''}
+                              </p>
                               <p className="text-xs text-forest-400">Entrega em até {f.prazo} dias úteis</p>
                             </div>
                           </div>
