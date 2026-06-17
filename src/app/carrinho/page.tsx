@@ -34,26 +34,29 @@ export default function CartPage() {
     setFreteError('')
 
     try {
-      const pesoTotal = items.reduce((acc, item) => acc + (item.quantidade * 100), 0) // assume 100g each
       const response = await fetch('/api/correios/frete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cep, peso: Math.max(pesoTotal / 1000, 0.1) }),
+        body: JSON.stringify({
+          cepDestino: cep.replace(/\D/g, ''),
+          itens: items.map(item => ({ produtoId: item.id, quantidade: item.quantidade })),
+        }),
       })
       const data = await response.json()
-      setFreteOptions(data.opcoes || [])
-      if (data.opcoes?.length > 0) {
-        setSelectedFrete(data.opcoes[0])
+      const opcoes: FreteOption[] = (data.servicos || []).map((s: { servico: string; codigo: string; preco: string; prazo: string }) => ({
+        servico: s.servico,
+        codigo: s.codigo,
+        preco: parseFloat(s.preco),
+        prazo: parseInt(s.prazo),
+      }))
+      setFreteOptions(opcoes)
+      if (opcoes.length > 0) {
+        setSelectedFrete(opcoes[0])
+      } else {
+        setFreteError('Não foi possível calcular o frete para este CEP.')
       }
     } catch {
       setFreteError('Erro ao calcular frete. Tente novamente.')
-      // Mock fallback
-      const mock = [
-        { servico: 'PAC', codigo: '41106', preco: 18.50, prazo: 7 },
-        { servico: 'SEDEX', codigo: '40010', preco: 29.90, prazo: 2 },
-      ]
-      setFreteOptions(mock)
-      setSelectedFrete(mock[0])
     } finally {
       setLoadingFrete(false)
     }
