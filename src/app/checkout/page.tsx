@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { CreditCard, Barcode, QrCode, ChevronRight, Loader2, CheckCircle2 } from 'lucide-react'
+import { CreditCard, Barcode, QrCode, ChevronRight, Loader2, CheckCircle2, Truck } from 'lucide-react'
 import Image from 'next/image'
 import { useCartStore } from '@/components/cart/cart-store'
 import { Button } from '@/components/ui/button'
@@ -35,6 +35,13 @@ export default function CheckoutPage() {
   const [step, setStep] = useState(1)
   const [pagamento, setPagamento] = useState<'idle' | 'processando' | 'aprovado'>('idle')
 
+  // Frete Correios
+  interface ServicoFrete { servico: string; codigo: string; preco: string; prazo: string }
+  const [fretes, setFretes] = useState<ServicoFrete[]>([])
+  const [freteSelecionado, setFreteSelecionado] = useState<ServicoFrete | null>(null)
+  const [calculandoFrete, setCalculandoFrete] = useState(false)
+  const [erroFrete, setErroFrete] = useState('')
+
   const {
     register,
     handleSubmit,
@@ -47,6 +54,37 @@ export default function CheckoutPage() {
   })
 
   const formaPagamento = watch('formaPagamento')
+
+  const frete = freteSelecionado ? parseFloat(freteSelecionado.preco) : 0
+  const totalComFrete = total() + frete
+
+  const calcularFrete = async (cep: string) => {
+    const clean = cep.replace(/\D/g, '')
+    if (clean.length !== 8) return
+    setCalculandoFrete(true)
+    setErroFrete('')
+    setFretes([])
+    setFreteSelecionado(null)
+    try {
+      const res = await fetch('/api/correios/frete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cepDestino: clean,
+          itens: items.map(item => ({ produtoId: item.id, quantidade: item.quantidade })),
+        }),
+      })
+      const data = await res.json()
+      const servicos: ServicoFrete[] = data.servicos || []
+      setFretes(servicos)
+      if (servicos.length > 0) setFreteSelecionado(servicos[0])
+      else setErroFrete('Não foi possível calcular o frete para este CEP.')
+    } catch {
+      setErroFrete('Erro ao calcular o frete. Tente novamente.')
+    } finally {
+      setCalculandoFrete(false)
+    }
+  }
 
   const searchCep = async (cep: string) => {
     const clean = cep.replace(/\D/g, '')
@@ -61,9 +99,15 @@ export default function CheckoutPage() {
         setValue('estado', data.uf)
       }
     } catch {}
+    // Calcula o frete assim que o CEP é informado.
+    calcularFrete(clean)
   }
 
   const onSubmit = async (data: CheckoutForm) => {
+    if (!freteSelecionado) {
+      setErroFrete('Selecione uma opção de frete antes de continuar.')
+      return
+    }
     setLoading(true)
     setPagamento('processando')
     try {
@@ -87,14 +131,15 @@ export default function CheckoutPage() {
             estado: data.estado,
           },
           formaPagamento: data.formaPagamento,
+          servicoCorreios: freteSelecionado.servico,
           itens: items.map(item => ({
             produtoId: item.id,
             quantidade: item.quantidade,
             precoUnit: item.preco,
           })),
           subtotal: total(),
-          frete: 0,
-          total: total(),
+          frete,
+          total: totalComFrete,
           pagamentoSimulado: true,
         }),
       })
@@ -298,6 +343,76 @@ export default function CheckoutPage() {
                 </div>
               </motion.div>
 
+              {/* Shipping (Correios) */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+                className="bg-cream-50 rounded-2xl border border-cream-300 p-6"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-forest-900 font-semibold text-lg">Entrega (Correios)</h2>
+                  <button
+                    type="button"
+                    onClick={() => calcularFrete(watch('cep') || '')}
+                    disabled={calculandoFrete}
+                    className="text-sm text-terracotta-500 hover:text-terracotta-600 disabled:opacity-50"
+                  >
+                    {calculandoFrete ? 'Calculando...' : 'Recalcular'}
+                  </button>
+                </div>
+
+                {calculandoFrete && (
+                  <div className="flex items-center gap-2 text-forest-500 text-sm py-4">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Calculando frete pelos Correios...
+                  </div>
+                )}
+
+                {!calculandoFrete && fretes.length === 0 && (
+                  <p className="text-forest-500 text-sm py-2">
+                    {erroFrete || 'Informe o CEP acima para calcular o frete.'}
+                  </p>
+                )}
+
+                {!calculandoFrete && fretes.length > 0 && (
+                  <div className="space-y-3">
+                    {fretes.map((f) => {
+                      const ativo = freteSelecionado?.codigo === f.codigo
+                      return (
+                        <label
+                          key={f.codigo}
+                          className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
+                            ativo ? 'border-terracotta-500 bg-terracotta-500/10' : 'border-cream-300 hover:border-sage-300'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="radio"
+                              name="frete"
+                              checked={ativo}
+                              onChange={() => { setFreteSelecionado(f); setErroFrete('') }}
+                              className="sr-only"
+                            />
+                            <Truck className={`w-5 h-5 ${ativo ? 'text-terracotta-500' : 'text-forest-400'}`} />
+                            <div>
+                              <p className={`text-sm font-medium ${ativo ? 'text-forest-900' : 'text-forest-600'}`}>{f.servico}</p>
+                              <p className="text-xs text-forest-400">Entrega em até {f.prazo} dias úteis</p>
+                            </div>
+                          </div>
+                          <span className={`text-sm font-semibold ${ativo ? 'text-terracotta-500' : 'text-forest-600'}`}>
+                            {formatCurrency(parseFloat(f.preco))}
+                          </span>
+                        </label>
+                      )
+                    })}
+                  </div>
+                )}
+                {erroFrete && fretes.length > 0 && (
+                  <p className="text-red-400 text-xs mt-2">{erroFrete}</p>
+                )}
+              </motion.div>
+
               {/* Payment */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -374,12 +489,14 @@ export default function CheckoutPage() {
                     <span className="text-forest-900">{formatCurrency(total())}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-forest-500">Frete</span>
-                    <span className="text-forest-900">A calcular</span>
+                    <span className="text-forest-500">Frete{freteSelecionado ? ` (${freteSelecionado.servico})` : ''}</span>
+                    <span className="text-forest-900">
+                      {freteSelecionado ? formatCurrency(frete) : 'A calcular'}
+                    </span>
                   </div>
                   <div className="flex justify-between font-semibold pt-2 border-t border-cream-300">
                     <span className="text-forest-900">Total</span>
-                    <span className="text-terracotta-500 text-lg">{formatCurrency(total())}</span>
+                    <span className="text-terracotta-500 text-lg">{formatCurrency(totalComFrete)}</span>
                   </div>
                 </div>
 
@@ -388,9 +505,9 @@ export default function CheckoutPage() {
                   variant="luxury"
                   size="lg"
                   className="w-full mt-6"
-                  disabled={loading}
+                  disabled={loading || !freteSelecionado}
                 >
-                  {loading ? 'Processando...' : 'Confirmar Pedido'}
+                  {loading ? 'Processando...' : !freteSelecionado ? 'Calcule o frete' : 'Confirmar Pedido'}
                 </Button>
 
                 <p className="text-forest-400 text-xs text-center mt-3">
