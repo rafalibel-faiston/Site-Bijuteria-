@@ -7,7 +7,8 @@ export default auth((req) => {
   const { pathname, origin } = req.nextUrl
 
   const isAdminRoute = pathname.startsWith('/admin')
-  const isContaRoute = pathname.startsWith('/conta')
+  // Área do cliente e checkout exigem login.
+  const isClienteRoute = pathname.startsWith('/conta') || pathname.startsWith('/checkout')
 
   // Painel admin: exige login E papel de administrador.
   if (isAdminRoute) {
@@ -19,8 +20,8 @@ export default auth((req) => {
     }
   }
 
-  // Área do cliente: exige apenas estar logado.
-  if (isContaRoute && !isLoggedIn) {
+  // Conta e checkout: exige apenas estar logado.
+  if (isClienteRoute && !isLoggedIn) {
     const url = new URL('/entrar', origin)
     url.searchParams.set('redirect', pathname)
     return NextResponse.redirect(url)
@@ -30,5 +31,5 @@ export default auth((req) => {
 })
 
 export const config = {
-  matcher: ['/admin/:path*', '/conta/:path*'],
+  matcher: ['/admin/:path*', '/conta/:path*', '/checkout/:path*', '/checkout'],
 }

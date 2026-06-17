@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { Header } from './header'
 import { Footer } from './footer'
 import { CartDrawer } from '../cart/cart-drawer'
+import { WelcomeModal } from './welcome-modal'
 
 // Mostra o cabecalho/rodape/carrinho apenas na loja (cliente).
 // No painel admin e na tela de login, eles ficam ocultos.
@@ -20,6 +21,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
     <>
       <Header />
       <CartDrawer />
+      <WelcomeModal />
       <main>{children}</main>
       <Footer />
     </>
