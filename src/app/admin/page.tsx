@@ -78,7 +78,9 @@ export default function AdminDashboard() {
       .finally(() => setLoading(false))
   }, [])
 
-  const receitaVariacao = data ? ((data.receitaMes - data.receitaMesAnterior) / data.receitaMesAnterior) * 100 : 0
+  const receitaVariacao = data && data.receitaMesAnterior > 0
+    ? ((data.receitaMes - data.receitaMesAnterior) / data.receitaMesAnterior) * 100
+    : 0
 
   if (loading) {
     return (

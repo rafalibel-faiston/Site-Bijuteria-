@@ -1,9 +1,7 @@
 import type { Metadata } from 'next'
 import { Mulish, Fraunces } from 'next/font/google'
 import './globals.css'
-import { Header } from '@/components/layout/header'
-import { Footer } from '@/components/layout/footer'
-import { CartDrawer } from '@/components/cart/cart-drawer'
+import { SiteChrome } from '@/components/layout/site-chrome'
 
 const mulish = Mulish({
   subsets: ['latin'],
@@ -33,12 +31,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${mulish.variable} ${fraunces.variable}`}>
       <body className="bg-cream-100 text-forest-900 min-h-screen">
-        <Header />
-        <CartDrawer />
-        <main>
-          {children}
-        </main>
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   )
