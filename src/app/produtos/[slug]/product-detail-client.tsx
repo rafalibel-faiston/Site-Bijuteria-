@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ShoppingBag, ArrowLeft, Truck, Shield, RefreshCw, Star, Check } from 'lucide-react'
+import { ShoppingBag, ArrowLeft, Truck, Shield, RefreshCw, Check } from 'lucide-react'
 import { ProductGallery } from '@/components/products/product-gallery'
 import { ProductCard } from '@/components/products/product-card'
 import { Button } from '@/components/ui/button'
@@ -79,7 +79,7 @@ export function ProductDetailClient({ produto, related }: Props) {
               <div className="flex items-center gap-2 mb-3">
                 <Badge variant="outline">{produto.categoria}</Badge>
                 {discount > 0 && (
-                  <Badge className="bg-red-500 text-white border-0">-{discount}% OFF</Badge>
+                  <Badge className="bg-terracotta-600 text-cream-50 border-0">-{discount}% OFF</Badge>
                 )}
                 {produto.estoque <= 5 && produto.estoque > 0 && (
                   <Badge variant="warning">Últimas {produto.estoque} unidades</Badge>
@@ -92,26 +92,30 @@ export function ProductDetailClient({ produto, related }: Props) {
                 {produto.nome}
               </h1>
 
-              {/* Rating */}
-              <div className="flex items-center gap-2 mb-4">
-                <div className="flex">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < 4 ? 'fill-mustard-400 text-mustard-400' : 'text-cream-300'}`} />
-                  ))}
-                </div>
-                <span className="text-forest-500 text-sm">(4.8) • {produto.vendas} vendas</span>
-              </div>
+              {/* Prova social real (sem avaliação fabricada) */}
+              {produto.vendas > 0 && (
+                <p className="text-forest-500 text-sm mb-4">
+                  {produto.vendas} {produto.vendas === 1 ? 'pessoa já levou' : 'pessoas já levaram'} esta peça
+                </p>
+              )}
             </div>
 
             {/* Price */}
-            <div className="flex items-end gap-4">
-              <span className="font-heading text-4xl font-bold text-terracotta-500">
-                {formatCurrency(produto.preco)}
-              </span>
-              {produto.precoOriginal && (
-                <span className="text-forest-400 text-xl line-through mb-1">
-                  {formatCurrency(produto.precoOriginal)}
+            <div className="product-detail__price space-y-1">
+              <div className="flex items-end gap-3">
+                <span className="font-heading text-4xl font-bold text-forest-900">
+                  {formatCurrency(produto.preco)}
                 </span>
+                {produto.precoOriginal && (
+                  <span className="text-forest-400 text-xl line-through mb-1">
+                    {formatCurrency(produto.precoOriginal)}
+                  </span>
+                )}
+              </div>
+              {discount > 0 && produto.precoOriginal && (
+                <p className="text-sage-700 text-sm font-medium">
+                  Economize {formatCurrency(produto.precoOriginal - produto.preco)} ({discount}% OFF)
+                </p>
               )}
             </div>
 
