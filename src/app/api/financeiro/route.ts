@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { requireAdmin } from '@/lib/api-auth'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
+  const gate = await requireAdmin()
+  if (!gate.ok) return gate.response
+
   const agora = new Date()
   const inicioMes = new Date(agora.getFullYear(), agora.getMonth(), 1)
 
@@ -54,6 +58,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const gate = await requireAdmin()
+  if (!gate.ok) return gate.response
+
   const body = await req.json()
   const despesa = await prisma.despesa.create({
     data: {
@@ -66,6 +73,9 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  const gate = await requireAdmin()
+  if (!gate.ok) return gate.response
+
   const { searchParams } = new URL(req.url)
   const id = searchParams.get('id')
   if (!id) return NextResponse.json({ error: 'ID required' }, { status: 400 })

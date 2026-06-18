@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { requireAdmin } from '@/lib/api-auth'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
+  const gate = await requireAdmin()
+  if (!gate.ok) return gate.response
+
   const agora = new Date()
   const inicioMes = new Date(agora.getFullYear(), agora.getMonth(), 1)
 

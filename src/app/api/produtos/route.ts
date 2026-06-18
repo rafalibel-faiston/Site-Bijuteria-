@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { requireAdmin } from '@/lib/api-auth'
 
 export const dynamic = 'force-dynamic'
 
@@ -25,6 +26,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const gate = await requireAdmin()
+  if (!gate.ok) return gate.response
+
   const body = await req.json()
 
   const produto = await prisma.produto.create({

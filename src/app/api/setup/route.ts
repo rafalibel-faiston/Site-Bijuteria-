@@ -25,8 +25,9 @@ const PRODUTOS = [
 ]
 
 async function runSetup() {
-  // 1. Usuario admin
-  const senhaHash = await bcrypt.hash('admin123', 10)
+  // 1. Usuario admin (senha vem de env; só é aplicada na CRIACAO — o upsert
+  // com update:{} nao reescreve a senha de um admin ja existente).
+  const senhaHash = await bcrypt.hash(process.env.ADMIN_INITIAL_PASSWORD || 'admin123', 10)
   await prisma.user.upsert({
     where: { email: 'admin@bijuteria.com' },
     update: {},
@@ -76,9 +77,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       ok: true,
       mensagem: 'Configuração concluída com sucesso! ✅',
-      admin: { email: 'admin@bijuteria.com', senha: 'admin123' },
+      admin: { email: 'admin@bijuteria.com' },
       totalProdutos,
-      proximoPasso: 'Acesse /login e entre com o email e senha acima.',
+      proximoPasso:
+        'Acesse /login com o e-mail acima e a senha definida em ADMIN_INITIAL_PASSWORD. Troque a senha após o primeiro acesso.',
     })
   } catch (e) {
     return NextResponse.json(

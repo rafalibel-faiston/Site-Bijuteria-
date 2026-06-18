@@ -4,12 +4,15 @@ import Link from 'next/link'
 import { CheckCircle, Package, Truck, MapPin, ArrowRight } from 'lucide-react'
 import { formatCurrency, formatDateTime, statusLabels } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { getSessionUser } from '@/lib/api-auth'
+import { validarTokenPedido } from '@/lib/pedido-token'
 
 interface Props {
   params: { id: string }
+  searchParams: { t?: string }
 }
 
-export default async function OrderPage({ params }: Props) {
+export default async function OrderPage({ params, searchParams }: Props) {
   const pedido = await prisma.pedido.findUnique({
     where: { id: params.id },
     include: {
@@ -20,6 +23,16 @@ export default async function OrderPage({ params }: Props) {
   })
 
   if (!pedido) notFound()
+
+  // Autorização: admin, dono (logado) ou portador do token de acesso (?t=).
+  // Sem isso, a página exporia PII (nome, e-mail, endereço) de qualquer pedido.
+  const { id: userId, role } = await getSessionUser()
+  const autorizado =
+    role === 'ADMIN' ||
+    (userId && pedido.userId === userId) ||
+    validarTokenPedido(pedido.id, searchParams?.t)
+
+  if (!autorizado) notFound()
 
   const endereco = JSON.parse(pedido.enderecoEntrega)
 

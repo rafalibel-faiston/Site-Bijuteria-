@@ -149,7 +149,6 @@ export default function CheckoutPage() {
           subtotal: total(),
           frete,
           total: totalComFrete,
-          pagamentoSimulado: true,
         }),
       })
 
@@ -159,7 +158,8 @@ export default function CheckoutPage() {
       setPagamento('aprovado')
       clearCart()
       await new Promise((resolve) => setTimeout(resolve, 900))
-      router.push(`/pedidos/${pedido.id}`)
+      // Token de acesso para abrir a confirmação do próprio pedido (guest).
+      router.push(`/pedidos/${pedido.id}${pedido.acessoToken ? `?t=${pedido.acessoToken}` : ''}`)
     } catch (error) {
       console.error(error)
       setPagamento('idle')
@@ -190,13 +190,13 @@ export default function CheckoutPage() {
             {pagamento === 'processando' ? (
               <>
                 <Loader2 className="w-12 h-12 text-terracotta-500 animate-spin mx-auto mb-4" />
-                <p className="text-forest-900 font-semibold text-lg">Processando pagamento</p>
+                <p className="text-forest-900 font-semibold text-lg">Registrando seu pedido</p>
                 <p className="text-forest-500 text-sm mt-1">Aguarde um instante...</p>
               </>
             ) : (
               <>
                 <CheckCircle2 className="w-12 h-12 text-sage-600 mx-auto mb-4" />
-                <p className="text-forest-900 font-semibold text-lg">Pagamento aprovado!</p>
+                <p className="text-forest-900 font-semibold text-lg">Pedido recebido!</p>
                 <p className="text-forest-500 text-sm mt-1">Redirecionando para o seu pedido...</p>
               </>
             )}
@@ -210,7 +210,7 @@ export default function CheckoutPage() {
         </h1>
 
         <div className="mb-6 p-3 rounded-xl bg-mustard-400/15 border border-mustard-400/30 text-sm text-forest-700">
-          <strong className="font-semibold">Modo teste:</strong> o pagamento é simulado e aprovado automaticamente para validar a baixa de estoque.
+          <strong className="font-semibold">Pagamento:</strong> ao confirmar, seu pedido é registrado e enviamos as instruções de pagamento (PIX/boleto). O envio é liberado após a confirmação do pagamento.
         </div>
 
         {/* Steps */}
