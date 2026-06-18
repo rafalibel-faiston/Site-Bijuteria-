@@ -59,6 +59,8 @@ model Pedido {
   total           Float
   formaPagamento  String?
   observacoes     String?
+  idempotencyKey  String?      @unique // anti pedido duplicado (duplo-clique)
+  pagamentoRef    String?      @unique // id do pagamento no gateway (webhook)
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
   itens           ItemPedido[]

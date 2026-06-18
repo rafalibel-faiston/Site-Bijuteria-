@@ -60,6 +60,20 @@ export async function POST(req: NextRequest) {
   const session = await auth()
   const userId = (session?.user as { id?: string } | undefined)?.id || null
 
+  // Idempotencia: a mesma chave (duplo-clique/retry) devolve o pedido ja criado
+  // em vez de criar e cobrar de novo.
+  const idempotencyKey =
+    typeof body.idempotencyKey === 'string' && body.idempotencyKey ? body.idempotencyKey : null
+  if (idempotencyKey) {
+    const existente = await prisma.pedido.findUnique({
+      where: { idempotencyKey },
+      include: { itens: true },
+    })
+    if (existente) {
+      return NextResponse.json({ ...existente, acessoToken: gerarTokenPedido(existente.id) })
+    }
+  }
+
   try {
     const pedido = await prisma.$transaction(async (tx) => {
       // 1. Carrega os produtos do BANCO — preços e pesos vêm daqui, nunca do cliente.
@@ -128,6 +142,7 @@ export async function POST(req: NextRequest) {
           total,
           formaPagamento: body.formaPagamento,
           observacoes: body.observacoes,
+          idempotencyKey,
           itens: { create: itensValidados },
         },
         include: { itens: true },
@@ -144,6 +159,16 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     if (error instanceof PedidoError) {
       return NextResponse.json({ error: error.message }, { status: 409 })
+    }
+    // Corrida de idempotencia: dois envios simultaneos com a mesma chave.
+    if ((error as { code?: string }).code === 'P2002' && idempotencyKey) {
+      const existente = await prisma.pedido.findUnique({
+        where: { idempotencyKey },
+        include: { itens: true },
+      })
+      if (existente) {
+        return NextResponse.json({ ...existente, acessoToken: gerarTokenPedido(existente.id) })
+      }
     }
     console.error('Erro ao criar pedido')
     return NextResponse.json({ error: 'Erro ao criar pedido' }, { status: 500 })

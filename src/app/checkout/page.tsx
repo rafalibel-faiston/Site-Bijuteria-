@@ -35,6 +35,13 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [pagamento, setPagamento] = useState<'idle' | 'processando' | 'aprovado'>('idle')
+  // Chave de idempotência: gerada uma vez por carregamento, evita pedido
+  // duplicado em duplo-clique/retry de envio.
+  const [idempotencyKey] = useState(() =>
+    typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+  )
 
   // Frete Correios
   interface ServicoFrete { servico: string; codigo: string; preco: string; prazo: string; estimado?: boolean }
@@ -149,6 +156,7 @@ export default function CheckoutPage() {
           subtotal: total(),
           frete,
           total: totalComFrete,
+          idempotencyKey,
         }),
       })
 
