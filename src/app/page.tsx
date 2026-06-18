@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
-import { ArrowRight, Sparkles, Shield, Truck, RefreshCw, Star } from 'lucide-react'
+import { ArrowRight, Sparkles, Shield, Truck, RefreshCw, Star, Gem } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ProductCard } from '@/components/products/product-card'
 
@@ -64,12 +64,12 @@ export default function HomePage() {
   }, [])
 
   const categories = [
-    { name: 'Anéis', emoji: '💍', color: 'from-terracotta-500 to-mustard-400', href: '/produtos?categoria=Anéis' },
-    { name: 'Colares', emoji: '📿', color: 'from-sage-600 to-sage-400', href: '/produtos?categoria=Colares' },
-    { name: 'Brincos', emoji: '✨', color: 'from-terracotta-600 to-terracotta-400', href: '/produtos?categoria=Brincos' },
-    { name: 'Pulseiras', emoji: '🌟', color: 'from-forest-600 to-sage-500', href: '/produtos?categoria=Pulseiras' },
-    { name: 'Tornozeleiras', emoji: '⭐', color: 'from-mustard-500 to-mustard-400', href: '/produtos?categoria=Tornozeleiras' },
-    { name: 'Conjuntos', emoji: '👑', color: 'from-terracotta-500 to-sage-600', href: '/produtos?categoria=Conjuntos' },
+    { name: 'Anéis', href: '/produtos?categoria=Anéis' },
+    { name: 'Colares', href: '/produtos?categoria=Colares' },
+    { name: 'Brincos', href: '/produtos?categoria=Brincos' },
+    { name: 'Pulseiras', href: '/produtos?categoria=Pulseiras' },
+    { name: 'Tornozeleiras', href: '/produtos?categoria=Tornozeleiras' },
+    { name: 'Conjuntos', href: '/produtos?categoria=Conjuntos' },
   ]
 
   const features = [
@@ -106,7 +106,7 @@ export default function HomePage() {
           >
             <Sparkles className="w-5 h-5 text-terracotta-500" />
             <span className="text-terracotta-500 text-sm font-medium tracking-widest uppercase">
-              Nova Coleção 2024
+              Nova Coleção
             </span>
             <Sparkles className="w-5 h-5 text-terracotta-500" />
           </motion.div>
@@ -151,25 +151,6 @@ export default function HomePage() {
               </Link>
             </Button>
           </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex justify-center gap-12 mt-16"
-          >
-            {[
-              { value: '500+', label: 'Produtos' },
-              { value: '10k+', label: 'Clientes' },
-              { value: '4.9★', label: 'Avaliação' },
-            ].map(({ value, label }) => (
-              <div key={label} className="text-center">
-                <div className="text-2xl font-bold text-terracotta-500 font-heading">{value}</div>
-                <div className="text-forest-500 text-sm">{label}</div>
-              </div>
-            ))}
-          </motion.div>
         </div>
 
         {/* Scroll indicator */}
@@ -199,22 +180,24 @@ export default function HomePage() {
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {categories.map(({ name, emoji, color, href }, i) => (
+            {categories.map(({ name, href }, i) => (
               <motion.div
                 key={name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.08 }}
               >
                 <Link
                   href={href}
-                  className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-cream-50 border border-cream-300 hover:border-sage-400 hover:bg-white soft-shadow transition-all group"
+                  className="home__categoria group flex flex-col items-center gap-3 px-4 py-7 rounded-2xl bg-cream-50 border border-cream-300 hover:border-terracotta-500/50 hover:bg-white soft-shadow transition-all"
                 >
-                  <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform`}>
-                    {emoji}
-                  </div>
-                  <span className="text-forest-900 text-sm font-medium">{name}</span>
+                  <span className="w-12 h-12 rounded-full bg-sage-100 border border-sage-200 flex items-center justify-center group-hover:bg-sage-200 transition-colors">
+                    <Gem className="w-5 h-5 text-sage-600" />
+                  </span>
+                  <span className="font-heading text-base text-forest-900 group-hover:text-terracotta-500 transition-colors">
+                    {name}
+                  </span>
                 </Link>
               </motion.div>
             ))}
@@ -288,15 +271,15 @@ export default function HomePage() {
             <div className="relative z-10">
               <Sparkles className="w-12 h-12 text-mustard-400 mx-auto mb-6" />
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-cream-50 mb-4">
-                Frete Grátis acima de{' '}
-                <span className="text-gradient-sage">R$ 200</span>
+                Enviamos para{' '}
+                <span className="text-gradient-sage">todo o Brasil</span>
               </h2>
               <p className="text-cream-200 text-lg mb-8 max-w-xl mx-auto">
-                Compre mais e economize no frete. Válido para todo o Brasil via PAC ou SEDEX.
+                Frete calculado na hora por PAC ou SEDEX, com código de rastreio para acompanhar até a sua porta.
               </p>
               <Button variant="luxury" size="xl" asChild>
                 <Link href="/produtos">
-                  Aproveitar Oferta
+                  Ver Coleção
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
