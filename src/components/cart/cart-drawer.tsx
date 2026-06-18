@@ -21,7 +21,7 @@ export function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeCart}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-forest-900/60 backdrop-blur-sm"
           />
 
           {/* Drawer */}
@@ -111,7 +111,8 @@ export function CartDrawer() {
 
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="text-red-400 hover:text-red-300 transition-colors ml-auto"
+                            aria-label={`Remover ${item.nome} do carrinho`}
+                            className="text-forest-400 hover:text-terracotta-500 transition-colors ml-auto"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>

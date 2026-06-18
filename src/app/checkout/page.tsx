@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { CreditCard, Barcode, QrCode, ChevronRight, Loader2, CheckCircle2, Truck } from 'lucide-react'
+import { CreditCard, Barcode, QrCode, Loader2, CheckCircle2, Truck } from 'lucide-react'
 import Image from 'next/image'
 import { useCartStore } from '@/components/cart/cart-store'
 import { Button } from '@/components/ui/button'
@@ -33,7 +33,6 @@ export default function CheckoutPage() {
   const router = useRouter()
   const { items, total, clearCart } = useCartStore()
   const [loading, setLoading] = useState(false)
-  const [step, setStep] = useState(1)
   const [pagamento, setPagamento] = useState<'idle' | 'processando' | 'aprovado'>('idle')
   // Chave de idempotência: gerada uma vez por carregamento, evita pedido
   // duplicado em duplo-clique/retry de envio.
@@ -236,25 +235,6 @@ export default function CheckoutPage() {
 
         <div className="mb-6 p-3 rounded-xl bg-mustard-400/15 border border-mustard-400/30 text-sm text-forest-700">
           <strong className="font-semibold">Pagamento:</strong> ao confirmar, você é direcionado ao pagamento seguro (PIX, boleto ou cartão). O envio é liberado após a confirmação do pagamento.
-        </div>
-
-        {/* Steps */}
-        <div className="flex items-center gap-4 mb-10">
-          {[
-            { n: 1, label: 'Endereço' },
-            { n: 2, label: 'Pagamento' },
-            { n: 3, label: 'Confirmar' },
-          ].map(({ n, label }, i) => (
-            <div key={n} className="flex items-center gap-2">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-                step >= n ? 'bg-terracotta-500 text-cream-50' : 'bg-cream-200 text-forest-400'
-              }`}>
-                {n}
-              </div>
-              <span className={`text-sm ${step >= n ? 'text-forest-900' : 'text-forest-400'}`}>{label}</span>
-              {i < 2 && <ChevronRight className="w-4 h-4 text-forest-400" />}
-            </div>
-          ))}
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
