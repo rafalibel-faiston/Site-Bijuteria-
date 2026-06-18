@@ -127,9 +127,6 @@ export default function CheckoutPage() {
     setLoading(true)
     setPagamento('processando')
     try {
-      // Pagamento simulado (modo teste) — pequena pausa para simular o gateway.
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-
       const response = await fetch('/api/pedidos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -163,8 +160,28 @@ export default function CheckoutPage() {
       if (!response.ok) throw new Error('Falha ao criar pedido')
 
       const pedido = await response.json()
-      setPagamento('aprovado')
       clearCart()
+
+      // Tenta abrir o checkout do gateway (Mercado Pago). Se não estiver
+      // configurado, checkoutUrl vem null e seguimos para a confirmação.
+      let checkoutUrl: string | null = null
+      try {
+        const r = await fetch('/api/pagamento/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pedidoId: pedido.id, token: pedido.acessoToken }),
+        })
+        if (r.ok) checkoutUrl = (await r.json()).checkoutUrl
+      } catch {
+        // ignora — cai no fluxo manual
+      }
+
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl // redireciona para o Mercado Pago
+        return
+      }
+
+      setPagamento('aprovado')
       await new Promise((resolve) => setTimeout(resolve, 900))
       // Token de acesso para abrir a confirmação do próprio pedido (guest).
       router.push(`/pedidos/${pedido.id}${pedido.acessoToken ? `?t=${pedido.acessoToken}` : ''}`)
@@ -218,7 +235,7 @@ export default function CheckoutPage() {
         </h1>
 
         <div className="mb-6 p-3 rounded-xl bg-mustard-400/15 border border-mustard-400/30 text-sm text-forest-700">
-          <strong className="font-semibold">Pagamento:</strong> ao confirmar, seu pedido é registrado e enviamos as instruções de pagamento (PIX/boleto). O envio é liberado após a confirmação do pagamento.
+          <strong className="font-semibold">Pagamento:</strong> ao confirmar, você é direcionado ao pagamento seguro (PIX, boleto ou cartão). O envio é liberado após a confirmação do pagamento.
         </div>
 
         {/* Steps */}
