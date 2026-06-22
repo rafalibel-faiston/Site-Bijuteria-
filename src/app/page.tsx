@@ -67,19 +67,6 @@ export default function HomePage() {
 
         {/* Content */}
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto pt-20 pb-10">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-terracotta-50 border border-terracotta-200 rounded-full px-4 py-2 mb-7"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-terracotta-500" />
-            <span className="text-terracotta-600 text-xs font-semibold tracking-widest uppercase">
-              Nova Coleção 2025
-            </span>
-          </motion.div>
-
           {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
@@ -98,9 +85,9 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-forest-500 text-base sm:text-lg md:text-xl max-w-md sm:max-w-2xl mx-auto mb-8 leading-relaxed"
+            className="text-forest-500 text-base sm:text-lg max-w-sm sm:max-w-xl mx-auto mb-8 leading-relaxed"
           >
-            Joias e bijuterias exclusivas para cada momento especial da sua vida.
+            Bijuterias exclusivas para cada momento especial.
           </motion.p>
 
           {/* CTAs */}
@@ -108,7 +95,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center mb-10"
+            className="flex flex-col sm:flex-row gap-3 justify-center"
           >
             <Button variant="luxury" size="xl" asChild className="w-full sm:w-auto">
               <Link href="/produtos">
@@ -121,25 +108,6 @@ export default function HomePage() {
                 Conjuntos
               </Link>
             </Button>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="flex justify-center gap-8 sm:gap-12 border-t border-cream-300/80 pt-8"
-          >
-            {[
-              { value: '500+', label: 'Produtos' },
-              { value: '10k+', label: 'Clientes' },
-              { value: '4.9★', label: 'Avaliação' },
-            ].map(({ value, label }) => (
-              <div key={label} className="text-center">
-                <div className="text-xl sm:text-2xl font-bold text-terracotta-500 font-heading">{value}</div>
-                <div className="text-forest-500 text-xs sm:text-sm mt-0.5">{label}</div>
-              </div>
-            ))}
           </motion.div>
         </div>
       </section>
