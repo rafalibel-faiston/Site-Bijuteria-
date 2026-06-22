@@ -50,7 +50,7 @@ export default function HomePage() {
     <div className="bg-cream-50">
 
       {/* ══════════════════════ HERO ══════════════════════ */}
-      <section className="min-h-[95vh] flex flex-col justify-end px-5 sm:px-12 lg:px-20 pt-28 pb-14 sm:pb-20">
+      <section className="min-h-[85vh] sm:min-h-[95vh] flex flex-col justify-center sm:justify-end px-5 sm:px-12 lg:px-20 pt-20 sm:pt-28 pb-10 sm:pb-20">
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
