@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
+import Image from 'next/image'
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import { ProductCard } from '@/components/products/product-card'
 
@@ -50,50 +51,73 @@ export default function HomePage() {
     <div className="bg-cream-50">
 
       {/* ══════════════════════ HERO ══════════════════════ */}
-      <section className="min-h-[85vh] sm:min-h-[95vh] flex flex-col justify-center sm:justify-end px-5 sm:px-12 lg:px-20 pt-20 sm:pt-28 pb-10 sm:pb-20">
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7 }}
-          className="text-terracotta-500 text-[10px] tracking-[0.4em] uppercase mb-6 sm:mb-8 font-medium"
-        >
-          Nova Coleção · 2025
-        </motion.p>
+      <section className="flex flex-col lg:flex-row min-h-[85vh] sm:min-h-[95vh] overflow-hidden">
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.1 }}
-          className="font-heading font-bold text-forest-900 leading-[0.95] mb-10 sm:mb-14"
-          style={{ fontSize: 'clamp(3.5rem, 11vw, 9rem)' }}
-        >
-          Bijuterias<br />
-          para quem<br />
-          <em className="not-italic text-gradient-brand">sabe seu</em><br />
-          valor.
-        </motion.h1>
+        {/* Texto — esquerda no desktop, cima no mobile */}
+        <div className="flex-1 lg:w-1/2 flex flex-col justify-center sm:justify-end px-5 sm:px-12 lg:px-16 xl:px-20 pt-20 sm:pt-28 pb-10 sm:pb-20 bg-cream-50">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7 }}
+            className="text-terracotta-500 text-[10px] tracking-[0.4em] uppercase mb-6 sm:mb-8 font-medium"
+          >
+            Nova Coleção · 2025
+          </motion.p>
 
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.1 }}
+            className="font-heading font-bold text-forest-900 leading-[0.95] mb-10 sm:mb-14"
+            style={{ fontSize: 'clamp(3rem, 8vw, 7rem)' }}
+          >
+            Bijuterias<br />
+            para quem<br />
+            <em className="not-italic text-gradient-brand">sabe seu</em><br />
+            valor.
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.35 }}
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10"
+          >
+            <Link
+              href="/produtos"
+              className="inline-flex items-center gap-3 text-forest-900 text-sm sm:text-base font-medium border-b border-forest-900 pb-0.5 hover:text-terracotta-500 hover:border-terracotta-500 transition-colors group"
+            >
+              Ver Coleção
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/produtos?categoria=Conjuntos"
+              className="inline-flex items-center gap-3 text-forest-400 text-sm sm:text-base hover:text-forest-900 transition-colors group"
+            >
+              Explorar Conjuntos
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Imagem — direita no desktop, escondida no mobile */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-          className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10"
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.2 }}
+          className="hidden lg:block lg:w-1/2 relative"
         >
-          <Link
-            href="/produtos"
-            className="inline-flex items-center gap-3 text-forest-900 text-sm sm:text-base font-medium border-b border-forest-900 pb-0.5 hover:text-terracotta-500 hover:border-terracotta-500 transition-colors group"
-          >
-            Ver Coleção
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <Link
-            href="/produtos?categoria=Conjuntos"
-            className="inline-flex items-center gap-3 text-forest-400 text-sm sm:text-base hover:text-forest-900 transition-colors group"
-          >
-            Explorar Conjuntos
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <Image
+            src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900&h=1100&q=90&auto=format&fit=crop&crop=center"
+            alt="Bijuterias Charme Final"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Fade suave na borda esquerda para fundir com o texto */}
+          <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-cream-50 to-transparent" />
         </motion.div>
+
       </section>
 
       {/* ══════════════════════ CATEGORIAS ══════════════════════ */}
