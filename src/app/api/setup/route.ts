@@ -59,9 +59,13 @@ async function runSetup() {
 }
 
 function autorizado(req: NextRequest) {
-  const key = new URL(req.url).searchParams.get('key')
+  // Aceita tanto header Authorization: Bearer <secret> quanto ?key= (legado — remover após migração)
+  const authHeader = req.headers.get('authorization')
+  const bearerToken = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null
+  const queryKey = new URL(req.url).searchParams.get('key')
+  const token = bearerToken ?? queryKey
   const secret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET
-  return secret && key === secret
+  return secret && token === secret
 }
 
 export async function GET(req: NextRequest) {
@@ -75,10 +79,9 @@ export async function GET(req: NextRequest) {
     const totalProdutos = await runSetup()
     return NextResponse.json({
       ok: true,
-      mensagem: 'Configuração concluída com sucesso! ✅',
-      admin: { email: 'admin@bijuteria.com', senha: 'admin123' },
+      mensagem: 'Configuração concluída com sucesso!',
       totalProdutos,
-      proximoPasso: 'Acesse /login e entre com o email e senha acima.',
+      proximoPasso: 'Acesse /login com as credenciais de admin configuradas.',
     })
   } catch (e) {
     return NextResponse.json(

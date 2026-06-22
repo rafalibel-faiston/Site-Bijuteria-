@@ -5,13 +5,22 @@ import { auth } from '@/lib/auth'
 export const dynamic = 'force-dynamic'
 
 export async function GET(req: NextRequest) {
+  const session = await auth()
+  if (!session) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
+
   const { searchParams } = new URL(req.url)
   const statusParam = searchParams.get('status')
+  const role = (session.user as { role?: string } | undefined)?.role
+  const userId = (session.user as { id?: string } | undefined)?.id
 
   const where: Record<string, unknown> = {}
   if (statusParam) {
     const statuses = statusParam.split(',')
     where.status = { in: statuses }
+  }
+  // Clientes só veem os próprios pedidos
+  if (role !== 'ADMIN') {
+    where.userId = userId
   }
 
   const pedidos = await prisma.pedido.findMany({
