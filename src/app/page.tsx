@@ -20,17 +20,17 @@ interface Product {
 }
 
 const marqueeItems = [
-  '💍 Anéis', '📿 Colares', '✨ Brincos', '🌟 Pulseiras',
-  '⭐ Tornozeleiras', '👑 Conjuntos', '💎 Nova Coleção', '🎁 Presentes',
+  'Anéis', 'Colares', 'Brincos', 'Pulseiras',
+  'Tornozeleiras', 'Conjuntos', 'Nova Coleção', 'Presentes',
 ]
 
-const floatingEmojis = [
-  { emoji: '💍', top: '18%', left: '6%',  size: 'text-4xl', delay: 0,   duration: 4   },
-  { emoji: '✨', top: '20%', right: '5%', size: 'text-3xl', delay: 1,   duration: 5   },
-  { emoji: '📿', top: '55%', left: '4%',  size: 'text-3xl', delay: 0.5, duration: 3.5 },
-  { emoji: '👑', top: '52%', right: '4%', size: 'text-4xl', delay: 2,   duration: 4.5 },
-  { emoji: '🌟', top: '75%', left: '10%', size: 'text-2xl', delay: 1.5, duration: 6   },
-  { emoji: '⭐', top: '70%', right: '9%', size: 'text-2xl', delay: 0.8, duration: 5.5 },
+const floatingGems = [
+  { top: '18%', left: '6%',  delay: 0,   duration: 4   },
+  { top: '20%', right: '5%', delay: 1,   duration: 5   },
+  { top: '55%', left: '4%',  delay: 0.5, duration: 3.5 },
+  { top: '52%', right: '4%', delay: 2,   duration: 4.5 },
+  { top: '75%', left: '10%', delay: 1.5, duration: 6   },
+  { top: '70%', right: '9%', delay: 0.8, duration: 5.5 },
 ]
 
 export default function HomePage() {
@@ -46,12 +46,12 @@ export default function HomePage() {
   }, [])
 
   const categories = [
-    { name: 'Anéis',       emoji: '💍', color: 'from-terracotta-700 via-terracotta-500 to-mustard-400', href: '/produtos?categoria=Anéis' },
-    { name: 'Colares',     emoji: '📿', color: 'from-forest-800 via-sage-600 to-sage-400',              href: '/produtos?categoria=Colares' },
-    { name: 'Brincos',     emoji: '✨', color: 'from-terracotta-800 via-terracotta-600 to-terracotta-400', href: '/produtos?categoria=Brincos' },
-    { name: 'Pulseiras',   emoji: '🌟', color: 'from-forest-900 via-forest-700 to-sage-500',            href: '/produtos?categoria=Pulseiras' },
-    { name: 'Tornozeleiras', emoji: '⭐', color: 'from-mustard-600 via-mustard-500 to-cream-600',        href: '/produtos?categoria=Tornozeleiras' },
-    { name: 'Conjuntos',   emoji: '👑', color: 'from-terracotta-700 via-forest-700 to-sage-600',        href: '/produtos?categoria=Conjuntos' },
+    { name: 'Anéis',         color: 'from-terracotta-700 via-terracotta-500 to-mustard-400',     href: '/produtos?categoria=Anéis' },
+    { name: 'Colares',       color: 'from-forest-800 via-sage-600 to-sage-400',                  href: '/produtos?categoria=Colares' },
+    { name: 'Brincos',       color: 'from-terracotta-800 via-terracotta-600 to-terracotta-400',  href: '/produtos?categoria=Brincos' },
+    { name: 'Pulseiras',     color: 'from-forest-900 via-forest-700 to-sage-500',                href: '/produtos?categoria=Pulseiras' },
+    { name: 'Tornozeleiras', color: 'from-mustard-600 via-mustard-500 to-cream-600',             href: '/produtos?categoria=Tornozeleiras' },
+    { name: 'Conjuntos',     color: 'from-terracotta-700 via-forest-700 to-sage-600',            href: '/produtos?categoria=Conjuntos' },
   ]
 
   const features = [
@@ -74,17 +74,15 @@ export default function HomePage() {
           <div className="absolute top-1/4 right-0 w-56 h-56 bg-mustard-500/8 rounded-full blur-3xl" />
         </div>
 
-        {/* Emojis flutuantes */}
-        {floatingEmojis.map((item, i) => (
-          <motion.span
+        {/* Partículas decorativas (losangos/círculos) */}
+        {floatingGems.map((item, i) => (
+          <motion.div
             key={i}
-            className={`absolute ${item.size} select-none opacity-40 pointer-events-none`}
+            className="absolute w-1.5 h-1.5 rounded-full bg-terracotta-400 opacity-30 pointer-events-none"
             style={{ top: item.top, left: (item as any).left, right: (item as any).right }}
-            animate={{ y: [0, -14, 0], rotate: [0, 6, -6, 0] }}
+            animate={{ y: [0, -14, 0], opacity: [0.2, 0.5, 0.2] }}
             transition={{ duration: item.duration, repeat: Infinity, ease: 'easeInOut', delay: item.delay }}
-          >
-            {item.emoji}
-          </motion.span>
+          />
         ))}
 
         {/* Conteúdo central */}
@@ -175,7 +173,7 @@ export default function HomePage() {
 
           {/* 2 cards grandes portrait */}
           <div className="grid grid-cols-2 gap-3 mb-3">
-            {categories.slice(0, 2).map(({ name, emoji, color, href }, i) => (
+            {categories.slice(0, 2).map(({ name, color, href }, i) => (
               <motion.div
                 key={name}
                 initial={{ opacity: 0, y: 24 }}
@@ -189,15 +187,6 @@ export default function HomePage() {
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${color} transition-transform duration-500 group-hover:scale-105`} />
                   <div className="absolute inset-0 bg-black/15" />
-
-                  {/* Emoji central flutuante */}
-                  <motion.span
-                    animate={{ y: [0, -8, 0] }}
-                    transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.6 }}
-                    className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl sm:text-6xl select-none"
-                  >
-                    {emoji}
-                  </motion.span>
 
                   {/* Nome na base */}
                   <div className="relative z-10 px-4 py-4 bg-gradient-to-t from-black/60 to-transparent">
@@ -213,7 +202,7 @@ export default function HomePage() {
 
           {/* 4 cards menores em 2x2 */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {categories.slice(2).map(({ name, emoji, color, href }, i) => (
+            {categories.slice(2).map(({ name, color, href }, i) => (
               <motion.div
                 key={name}
                 initial={{ opacity: 0, y: 20 }}
@@ -227,7 +216,6 @@ export default function HomePage() {
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${color} transition-transform duration-500 group-hover:scale-105`} />
                   <div className="absolute inset-0 bg-black/10" />
-                  <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] text-3xl select-none">{emoji}</span>
                   <div className="relative z-10 px-3 py-3 bg-gradient-to-t from-black/55 to-transparent text-center">
                     <p className="text-cream-50 font-semibold text-sm leading-tight">{name}</p>
                   </div>
