@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { ArrowRight, Sparkles, Shield, Truck, RefreshCw, Star, ChevronRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { ArrowRight, ChevronRight } from 'lucide-react'
 import { ProductCard } from '@/components/products/product-card'
 
 interface Product {
@@ -19,322 +18,204 @@ interface Product {
   vendas: number
 }
 
-const marqueeItems = [
-  'Anéis', 'Colares', 'Brincos', 'Pulseiras',
-  'Tornozeleiras', 'Conjuntos', 'Nova Coleção', 'Presentes',
+const categories = [
+  { name: 'Anéis',         href: '/produtos?categoria=Anéis' },
+  { name: 'Colares',       href: '/produtos?categoria=Colares' },
+  { name: 'Brincos',       href: '/produtos?categoria=Brincos' },
+  { name: 'Pulseiras',     href: '/produtos?categoria=Pulseiras' },
+  { name: 'Tornozeleiras', href: '/produtos?categoria=Tornozeleiras' },
+  { name: 'Conjuntos',     href: '/produtos?categoria=Conjuntos' },
 ]
 
-const floatingGems = [
-  { top: '18%', left: '6%',  delay: 0,   duration: 4   },
-  { top: '20%', right: '5%', delay: 1,   duration: 5   },
-  { top: '55%', left: '4%',  delay: 0.5, duration: 3.5 },
-  { top: '52%', right: '4%', delay: 2,   duration: 4.5 },
-  { top: '75%', left: '10%', delay: 1.5, duration: 6   },
-  { top: '70%', right: '9%', delay: 0.8, duration: 5.5 },
+const benefits = [
+  { title: 'Compra Segura',     desc: 'Pagamentos protegidos e criptografados' },
+  { title: 'Entrega Rápida',    desc: 'Enviamos para todo o Brasil' },
+  { title: 'Troca Garantida',   desc: '30 dias para troca ou devolução' },
+  { title: 'Qualidade Premium', desc: 'Peças selecionadas com rigoroso controle' },
 ]
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([])
   const featuredRef = useRef(null)
-  const isInView = useInView(featuredRef, { once: true })
+  const isInView = useInView(featuredRef, { once: true, margin: '-80px' })
 
   useEffect(() => {
-    fetch('/api/produtos?limit=8&sort=vendas')
+    fetch('/api/produtos?limit=6&sort=vendas')
       .then(r => r.json())
       .then(data => setProducts(data.produtos || []))
       .catch(() => {})
   }, [])
 
-  const categories = [
-    { name: 'Anéis',         color: 'from-terracotta-700 via-terracotta-500 to-mustard-400',     href: '/produtos?categoria=Anéis' },
-    { name: 'Colares',       color: 'from-forest-800 via-sage-600 to-sage-400',                  href: '/produtos?categoria=Colares' },
-    { name: 'Brincos',       color: 'from-terracotta-800 via-terracotta-600 to-terracotta-400',  href: '/produtos?categoria=Brincos' },
-    { name: 'Pulseiras',     color: 'from-forest-900 via-forest-700 to-sage-500',                href: '/produtos?categoria=Pulseiras' },
-    { name: 'Tornozeleiras', color: 'from-mustard-600 via-mustard-500 to-cream-600',             href: '/produtos?categoria=Tornozeleiras' },
-    { name: 'Conjuntos',     color: 'from-terracotta-700 via-forest-700 to-sage-600',            href: '/produtos?categoria=Conjuntos' },
-  ]
-
-  const features = [
-    { icon: Shield,    title: 'Compra Segura',    desc: 'Pagamentos protegidos' },
-    { icon: Truck,     title: 'Entrega Rápida',   desc: 'Para todo o Brasil' },
-    { icon: RefreshCw, title: 'Troca Garantida',  desc: '30 dias garantidos' },
-    { icon: Star,      title: 'Qualidade Premium', desc: 'Controle rigoroso' },
-  ]
-
   return (
-    <div className="overflow-hidden">
+    <div className="bg-cream-50">
 
-      {/* ═══════════════════════ HERO ═══════════════════════ */}
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-center bg-forest-950 overflow-hidden px-6 pt-24 pb-16">
+      {/* ══════════════════════ HERO ══════════════════════ */}
+      <section className="min-h-[95vh] flex flex-col justify-end px-5 sm:px-12 lg:px-20 pt-28 pb-14 sm:pb-20">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7 }}
+          className="text-terracotta-500 text-[10px] tracking-[0.4em] uppercase mb-6 sm:mb-8 font-medium"
+        >
+          Nova Coleção · 2025
+        </motion.p>
 
-        {/* Orbs de fundo */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[480px] h-[480px] bg-terracotta-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-sage-600/10 rounded-full blur-3xl" />
-          <div className="absolute top-1/4 right-0 w-56 h-56 bg-mustard-500/8 rounded-full blur-3xl" />
-        </div>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.1 }}
+          className="font-heading font-bold text-forest-900 leading-[0.95] mb-10 sm:mb-14"
+          style={{ fontSize: 'clamp(3.5rem, 11vw, 9rem)' }}
+        >
+          Bijuterias<br />
+          para quem<br />
+          <em className="not-italic text-gradient-brand">sabe seu</em><br />
+          valor.
+        </motion.h1>
 
-        {/* Partículas decorativas (losangos/círculos) */}
-        {floatingGems.map((item, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 rounded-full bg-terracotta-400 opacity-30 pointer-events-none"
-            style={{ top: item.top, left: (item as any).left, right: (item as any).right }}
-            animate={{ y: [0, -14, 0], opacity: [0.2, 0.5, 0.2] }}
-            transition={{ duration: item.duration, repeat: Infinity, ease: 'easeInOut', delay: item.delay }}
-          />
-        ))}
-
-        {/* Conteúdo central */}
-        <div className="relative z-10 text-center max-w-2xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-sage-400 text-xs tracking-[0.3em] uppercase mb-6 font-medium"
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10"
+        >
+          <Link
+            href="/produtos"
+            className="inline-flex items-center gap-3 text-forest-900 text-sm sm:text-base font-medium border-b border-forest-900 pb-0.5 hover:text-terracotta-500 hover:border-terracotta-500 transition-colors group"
           >
-            Bijuterias &amp; Acessórios
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="font-heading text-5xl sm:text-7xl lg:text-8xl font-bold text-cream-50 mb-5 leading-[1.05]"
+            Ver Coleção
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <Link
+            href="/produtos?categoria=Conjuntos"
+            className="inline-flex items-center gap-3 text-forest-400 text-sm sm:text-base hover:text-forest-900 transition-colors group"
           >
-            Brilhe do{' '}
-            <span className="text-gradient-brand">seu</span>
-            <br />
-            jeito
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-cream-300 text-base sm:text-lg mb-10 max-w-sm mx-auto leading-relaxed"
-          >
-            Bijuterias exclusivas para cada momento especial.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-          >
-            <Button variant="luxury" size="xl" asChild className="w-full sm:w-auto">
-              <Link href="/produtos">
-                Ver Coleção <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
-            <Link
-              href="/produtos?categoria=Conjuntos"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-xl border border-sage-700 text-cream-200 text-base font-medium hover:bg-sage-900/30 hover:border-sage-500 transition-all w-full sm:w-auto"
-            >
-              Ver Conjuntos
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Linha de brilho na base */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sage-700 to-transparent" />
+            Explorar Conjuntos
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
       </section>
 
-      {/* ═══════════════════════ MARQUEE ═══════════════════════ */}
-      <div className="bg-terracotta-500 py-3 overflow-hidden border-y border-terracotta-600">
-        <div className="flex animate-marquee">
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span
-              key={i}
-              className="flex items-center shrink-0 text-cream-50 text-sm font-semibold tracking-wide px-6"
+      {/* ══════════════════════ CATEGORIAS ══════════════════════ */}
+      <section className="border-t border-cream-300 bg-cream-50">
+        <div className="px-5 sm:px-12 lg:px-20 pt-14 pb-4">
+          <p className="text-[10px] text-forest-400 tracking-[0.35em] uppercase mb-8">Categorias</p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y divide-cream-200 border-t border-cream-200">
+          {categories.map(({ name, href }, i) => (
+            <motion.div
+              key={name}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
             >
-              {item}
-              <span className="ml-6 text-terracotta-300 text-xs">◆</span>
-            </span>
+              <Link
+                href={href}
+                className="flex items-center justify-between px-5 sm:px-6 py-6 sm:py-8 bg-cream-50 hover:bg-terracotta-500 hover:text-cream-50 text-forest-900 transition-colors group"
+              >
+                <span className="font-heading font-semibold text-base sm:text-lg">{name}</span>
+                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+              </Link>
+            </motion.div>
           ))}
         </div>
-      </div>
-
-      {/* ═══════════════════════ CATEGORIAS ═══════════════════════ */}
-      <section className="py-14 sm:py-20 px-4 bg-cream-50">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-10"
-          >
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-forest-900 mb-2">
-              Explore por <span className="text-gradient-brand">Categoria</span>
-            </h2>
-            <p className="text-forest-500 text-sm sm:text-base">O que você está procurando?</p>
-          </motion.div>
-
-          {/* 2 cards grandes portrait */}
-          <div className="grid grid-cols-2 gap-3 mb-3">
-            {categories.slice(0, 2).map(({ name, color, href }, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <Link
-                  href={href}
-                  className="group relative flex flex-col justify-end overflow-hidden rounded-2xl aspect-[3/4]"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${color} transition-transform duration-500 group-hover:scale-105`} />
-                  <div className="absolute inset-0 bg-black/15" />
-
-                  {/* Nome na base */}
-                  <div className="relative z-10 px-4 py-4 bg-gradient-to-t from-black/60 to-transparent">
-                    <p className="text-cream-50 font-heading font-bold text-xl sm:text-2xl">{name}</p>
-                    <p className="text-cream-300 text-xs flex items-center gap-1 mt-0.5">
-                      Ver tudo <ArrowRight className="w-3 h-3" />
-                    </p>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* 4 cards menores em 2x2 */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {categories.slice(2).map(({ name, color, href }, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: (i + 2) * 0.08 }}
-              >
-                <Link
-                  href={href}
-                  className="group relative flex flex-col justify-end overflow-hidden rounded-xl aspect-square"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${color} transition-transform duration-500 group-hover:scale-105`} />
-                  <div className="absolute inset-0 bg-black/10" />
-                  <div className="relative z-10 px-3 py-3 bg-gradient-to-t from-black/55 to-transparent text-center">
-                    <p className="text-cream-50 font-semibold text-sm leading-tight">{name}</p>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
       </section>
 
-      {/* ═══════════════════════ PRODUTOS EM DESTAQUE ═══════════════════════ */}
-      <section className="py-14 sm:py-20 bg-cream-100" ref={featuredRef}>
+      {/* ══════════════════════ PRODUTOS ══════════════════════ */}
+      <section className="py-20 sm:py-28 px-5 sm:px-12 lg:px-20 bg-cream-100" ref={featuredRef}>
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-6 sm:mb-10 px-4">
+
+          <div className="flex items-end justify-between mb-10 sm:mb-14">
             <div>
+              <p className="text-[10px] text-forest-400 tracking-[0.35em] uppercase mb-3">Destaques</p>
               <motion.h2
-                initial={{ opacity: 0, x: -16 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                className="font-heading text-3xl sm:text-4xl font-bold text-forest-900 mb-1"
+                initial={{ opacity: 0, y: 14 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                className="font-heading text-3xl sm:text-5xl font-bold text-forest-900"
               >
-                Mais <span className="text-gradient-brand">Vendidos</span>
+                Mais Vendidos
               </motion.h2>
-              <p className="text-forest-500 text-sm">Os favoritos das nossas clientes</p>
             </div>
-            <Button variant="outline" asChild className="shrink-0">
-              <Link href="/produtos" className="flex items-center gap-1">
-                Ver todos <ChevronRight className="w-4 h-4" />
-              </Link>
-            </Button>
+            <Link
+              href="/produtos"
+              className="text-xs sm:text-sm text-forest-400 hover:text-terracotta-500 transition-colors flex items-center gap-1 shrink-0 mb-1"
+            >
+              Ver todos <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
-          {/* Carrossel horizontal no mobile, grid no desktop */}
-          <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 px-4">
-            <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-max sm:w-auto">
-              {products.length > 0 ? (
-                products.map((product, i) => (
-                  <motion.div
-                    key={product.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: i * 0.07 }}
-                    className="w-[68vw] sm:w-auto shrink-0 snap-start"
-                  >
-                    <ProductCard {...product} />
-                  </motion.div>
-                ))
-              ) : (
-                Array.from({ length: 4 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-[68vw] sm:w-auto shrink-0 snap-start rounded-2xl bg-cream-50 border border-cream-300 overflow-hidden"
-                  >
-                    <div className="aspect-square bg-cream-200 animate-pulse" />
-                    <div className="p-3 space-y-2">
-                      <div className="h-3 bg-cream-200 rounded animate-pulse w-1/3" />
-                      <div className="h-4 bg-cream-200 rounded animate-pulse" />
-                      <div className="h-4 bg-cream-200 rounded animate-pulse w-1/2" />
-                    </div>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+            {products.length > 0 ? (
+              products.map((product, i) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: i * 0.07 }}
+                >
+                  <ProductCard {...product} />
+                </motion.div>
+              ))
+            ) : (
+              Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="rounded-xl bg-cream-50 overflow-hidden">
+                  <div className="aspect-square bg-cream-200 animate-pulse" />
+                  <div className="p-3 space-y-2">
+                    <div className="h-3 bg-cream-200 rounded animate-pulse w-1/3" />
+                    <div className="h-4 bg-cream-200 rounded animate-pulse" />
+                    <div className="h-4 bg-cream-200 rounded animate-pulse w-1/2" />
                   </div>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ BANNER FRETE ═══════════════════════ */}
-      <section className="py-14 sm:py-20 px-4 bg-cream-50">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-forest-800 to-forest-950 border border-sage-700 p-6 sm:p-12 text-center warm-shadow"
-          >
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-terracotta-500/15 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 right-0 w-48 h-48 bg-sage-500/10 rounded-full blur-3xl" />
-            </div>
-            <div className="relative z-10">
-              <Sparkles className="w-9 h-9 sm:w-12 sm:h-12 text-mustard-400 mx-auto mb-4 sm:mb-6" />
-              <h2 className="font-heading text-2xl sm:text-4xl md:text-5xl font-bold text-cream-50 mb-3 sm:mb-4 leading-tight">
-                Frete Grátis acima de{' '}
-                <span className="text-gradient-sage">R$ 200</span>
-              </h2>
-              <p className="text-cream-300 text-sm sm:text-lg mb-6 sm:mb-8 max-w-xl mx-auto">
-                Válido para todo o Brasil via PAC ou SEDEX.
-              </p>
-              <Button variant="luxury" size="xl" asChild className="w-full sm:w-auto">
-                <Link href="/produtos">
-                  Aproveitar Oferta <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ BENEFÍCIOS ═══════════════════════ */}
-      <section className="py-12 sm:py-16 px-4 bg-cream-100 border-t border-cream-300">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8">
-            {features.map(({ icon: Icon, title, desc }, i) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex flex-col items-center text-center"
-              >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-sage-100 border border-sage-200 flex items-center justify-center mb-3">
-                  <Icon className="w-5 h-5 text-sage-600" />
                 </div>
-                <h3 className="text-forest-900 font-semibold text-sm sm:text-base mb-1">{title}</h3>
-                <p className="text-forest-500 text-xs leading-relaxed">{desc}</p>
-              </motion.div>
-            ))}
+              ))
+            )}
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════ FRETE GRÁTIS ══════════════════════ */}
+      <section className="py-24 sm:py-36 px-5 sm:px-12 lg:px-20 bg-cream-50 border-y border-cream-300">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <p className="text-[10px] text-forest-400 tracking-[0.35em] uppercase mb-8">Promoção</p>
+          <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-bold text-forest-900 leading-tight mb-8">
+            Frete Grátis<br />
+            acima de{' '}
+            <span className="text-terracotta-500">R$ 200</span>
+          </h2>
+          <p className="text-forest-400 text-sm sm:text-base mb-10 max-w-sm mx-auto">
+            Válido para todo o Brasil via PAC ou SEDEX.
+          </p>
+          <Link
+            href="/produtos"
+            className="inline-flex items-center gap-3 text-forest-900 text-sm sm:text-base font-medium border-b border-forest-900 pb-0.5 hover:text-terracotta-500 hover:border-terracotta-500 transition-colors group"
+          >
+            Aproveitar oferta
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
+      </section>
+
+      {/* ══════════════════════ BENEFÍCIOS ══════════════════════ */}
+      <section className="py-16 sm:py-20 px-5 sm:px-12 lg:px-20 bg-cream-100">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+          {benefits.map(({ title, desc }, i) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+            >
+              <p className="font-heading font-semibold text-forest-900 text-sm sm:text-base mb-1">{title}</p>
+              <p className="text-forest-400 text-xs sm:text-sm leading-relaxed">{desc}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
