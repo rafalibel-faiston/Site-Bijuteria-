@@ -120,9 +120,6 @@ export default function CheckoutPage() {
     setLoading(true)
     setPagamento('processando')
     try {
-      // Pagamento simulado (modo teste) — pequena pausa para simular o gateway.
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-
       const response = await fetch('/api/pedidos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -149,17 +146,36 @@ export default function CheckoutPage() {
           subtotal: total(),
           frete,
           total: totalComFrete,
-          pagamentoSimulado: true,
         }),
       })
 
       if (!response.ok) throw new Error('Falha ao criar pedido')
 
       const pedido = await response.json()
-      setPagamento('aprovado')
       clearCart()
+
+      // Tenta abrir o checkout do Mercado Pago. Se não estiver configurado,
+      // checkoutUrl vem null e seguimos para a confirmação (pagamento manual).
+      let checkoutUrl: string | null = null
+      try {
+        const r = await fetch('/api/pagamento/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pedidoId: pedido.id, token: pedido.acessoToken }),
+        })
+        if (r.ok) checkoutUrl = (await r.json()).checkoutUrl
+      } catch {
+        // ignora — cai no fluxo manual
+      }
+
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl // redireciona para o Mercado Pago
+        return
+      }
+
+      setPagamento('aprovado')
       await new Promise((resolve) => setTimeout(resolve, 900))
-      router.push(`/pedidos/${pedido.id}`)
+      router.push(`/pedidos/${pedido.id}${pedido.acessoToken ? `?t=${pedido.acessoToken}` : ''}`)
     } catch (error) {
       console.error(error)
       setPagamento('idle')
@@ -190,13 +206,13 @@ export default function CheckoutPage() {
             {pagamento === 'processando' ? (
               <>
                 <Loader2 className="w-12 h-12 text-terracotta-500 animate-spin mx-auto mb-4" />
-                <p className="text-forest-900 font-semibold text-lg">Processando pagamento</p>
+                <p className="text-forest-900 font-semibold text-lg">Registrando seu pedido</p>
                 <p className="text-forest-500 text-sm mt-1">Aguarde um instante...</p>
               </>
             ) : (
               <>
                 <CheckCircle2 className="w-12 h-12 text-sage-600 mx-auto mb-4" />
-                <p className="text-forest-900 font-semibold text-lg">Pagamento aprovado!</p>
+                <p className="text-forest-900 font-semibold text-lg">Pedido recebido!</p>
                 <p className="text-forest-500 text-sm mt-1">Redirecionando para o seu pedido...</p>
               </>
             )}
@@ -210,7 +226,7 @@ export default function CheckoutPage() {
         </h1>
 
         <div className="mb-6 p-3 rounded-xl bg-mustard-400/15 border border-mustard-400/30 text-sm text-forest-700">
-          <strong className="font-semibold">Modo teste:</strong> o pagamento é simulado e aprovado automaticamente para validar a baixa de estoque.
+          <strong className="font-semibold">Pagamento:</strong> ao confirmar, você é direcionado ao pagamento seguro (PIX, boleto ou cartão) pelo Mercado Pago. O envio é liberado após a confirmação do pagamento.
         </div>
 
         {/* Steps */}

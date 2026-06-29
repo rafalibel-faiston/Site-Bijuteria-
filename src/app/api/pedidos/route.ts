@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { auth } from '@/lib/auth'
+import { gerarTokenPedido } from '@/lib/pedido-token'
 
 export const dynamic = 'force-dynamic'
 
@@ -52,8 +53,10 @@ export async function POST(req: NextRequest) {
       ? body.enderecoEntrega
       : JSON.stringify(body.enderecoEntrega ?? {})
 
-  // Pagamento simulado (modo teste): o pedido ja entra como CONFIRMADO/pago.
-  const status = body.pagamentoSimulado ? 'CONFIRMADO' : 'PENDENTE'
+  // O pedido SEMPRE nasce PENDENTE. O pagamento só é confirmado pelo webhook
+  // assinado do gateway (Mercado Pago) ou manualmente por um admin — nunca pelo
+  // cliente/navegador.
+  const status = 'PENDENTE'
 
   // Vincula o pedido ao cliente logado (se houver sessao).
   const session = await auth()
@@ -108,7 +111,12 @@ export async function POST(req: NextRequest) {
       return novoPedido
     })
 
-    return NextResponse.json(pedido, { status: 201 })
+    // Devolve um token de acesso para o cliente abrir a confirmação / gerar o
+    // checkout do gateway do próprio pedido.
+    return NextResponse.json(
+      { ...pedido, acessoToken: gerarTokenPedido(pedido.id) },
+      { status: 201 },
+    )
   } catch (error) {
     console.error('Erro ao criar pedido:', error)
     return NextResponse.json({ error: 'Erro ao criar pedido' }, { status: 500 })
